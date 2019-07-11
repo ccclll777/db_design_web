@@ -10,6 +10,7 @@ const home = r => require.ensure([], () => r(require('@/page/home')), 'home');
 const addShop = r => require.ensure([], () => r(require('@/page/addShop')), 'addShop');
 const addGoods = r => require.ensure([], () => r(require('@/page/addGoods')), 'addGoods');
 const TrainInfoList = r => require.ensure([], () => r(require('@/page/TrainInfoList')), 'TrainInfoList');
+const TrainParkingInfo = r => require.ensure([], () => r(require('@/page/TrainParkingInfo')), 'TrainParkingInfo');
 const shopList = r => require.ensure([], () => r(require('@/page/shopList')), 'shopList');
 const foodList = r => require.ensure([], () => r(require('@/page/foodList')), 'foodList');
 const orderList = r => require.ensure([], () => r(require('@/page/orderList')), 'orderList');
@@ -18,7 +19,9 @@ const visitor = r => require.ensure([], () => r(require('@/page/visitor')), 'vis
 const newMember = r => require.ensure([], () => r(require('@/page/newMember')), 'newMember');
 const uploadImg = r => require.ensure([], () => r(require('@/page/uploadImg')), 'uploadImg');
 const vueEdit = r => require.ensure([], () => r(require('@/page/vueEdit')), 'vueEdit');
-const adminSet = r => require.ensure([], () => r(require('@/page/adminSet')), 'adminSet');
+const UserInfo = r => require.ensure([], () => r(require('@/page/UserInfo')), 'UserInfo');
+const ChangeUserInfo = r => require.ensure([], () => r(require('@/page/ChangeUserInfo')), 'ChangeUserInfo');
+const ChangePassword = r => require.ensure([], () => r(require('@/page/ChangePassword')), 'ChangePassword');
 const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
 const explain = r => require.ensure([], () => r(require('@/page/explain')), 'explain');
 
@@ -52,6 +55,10 @@ const routes = [
 			component: TrainInfoList,
 			meta: ['数据管理', '列车信息'],
 		},{
+                path: '/SearchTrainInfo',
+                component: TrainParkingInfo,
+                meta: ['数据管理', '列车时刻表'],
+        },{
 			path: '/shopList',
 			component: shopList,
 			meta: ['数据管理', '商家列表'],
@@ -84,10 +91,20 @@ const routes = [
 			component: vueEdit,
 			meta: ['编辑', '文本编辑'],
 		},{
-			path: '/adminSet',
-			component: adminSet,
-			meta: ['设置', '管理员设置'],
+			path: '/UserInfo',
+			component: UserInfo,
+			meta: ['个人信息', '个人信息'],
 		},{
+                path: '/ChangeUserInfo',
+                component: ChangeUserInfo,
+                meta: ['个人信息', '修改个人信息'],
+        },
+            {
+                path: '/ChangePassword',
+                component: ChangePassword,
+                meta: ['个人信息', '修改个人信息'],
+            }
+        ,{
 			path: '/sendMessage',
 			component: sendMessage,
 			meta: ['设置', '发送通知'],

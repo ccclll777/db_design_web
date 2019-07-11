@@ -117,7 +117,8 @@
         methods: {
             async initData(){
                 try{
-                    const TrainInfoData = await getTrainInfoData({offset: 0, limit: 10000});
+
+                    const TrainInfoData = await getTrainInfoData({offset: 0, limit: 2141});
                     if (TrainInfoData.status == 1) {
 
                         this.tableData = TrainInfoData.trainInfos;

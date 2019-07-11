@@ -1,12 +1,13 @@
 import fetch from '@/config/fetch'
 
 /**
- * 登陆
+ * 登陆注册
  */
 
 export const login = data => fetch('/user/login', data, 'POST');
 
 export const register = data => fetch('/user/register', data, 'POST');
+
 /**
  * 退出
  */
@@ -19,6 +20,9 @@ export const signout = () => fetch('/user/signout');
 
 export const getAdminInfo = data => fetch('/user/info',data,'GET');
 
+export const getUserInfo = data => fetch('/user/userinfo',data,'GET');
+export const changeUserInfo = data => fetch('/user/changeuserinfo', data, 'POST');
+export const changePassword= data => fetch('/user/changepassword', data, 'POST');
 /**
  * api请求量
  */
@@ -202,8 +206,11 @@ export const getTrainInfoData = data => fetch('/train/traininfo', data);
  */
 
 export const SearchTrainInfoData = data => fetch('/train/searchtraininfo', data);
+
+export const SearchTrainParkingInfo = data => fetch('/train/searchtrainparkingInfo', data);
+
 /**
- * 获取订单列表
+ * 获取订单 列表
  */
 
 export const getOrderList = data => fetch('/bos/orders', data);
@@ -217,17 +224,17 @@ export const getOrderCount = data => fetch('/bos/orders/count', data);
 /**
  * 获取用户信息
  */
-
-export const getUserInfo = user_id => fetch('/v1/user/' + user_id);
-
-/**
- * 获取地址信息
- */
-
-export const getAddressById = address_id => fetch('/v1/addresse/' + address_id);
-
-/**
- * 获取用户分布信息
- */
-
-export const getUserCity = () => fetch('/v1/user/city/count');
+//
+// export const getUserInfo = user_id => fetch('/v1/user/' + user_id);
+//
+// /**
+//  * 获取地址信息
+//  */
+//
+// export const getAddressById = address_id => fetch('/v1/addresse/' + address_id);
+//
+// /**
+//  * 获取用户分布信息
+//  */
+//
+// export const getUserCity = () => fetch('/v1/user/city/count');
