@@ -6,7 +6,7 @@
 					<el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
 					<el-submenu index="2">
 						<template slot="title"><i class="el-icon-document"></i>数据管理</template>
-						<el-menu-item index="userList">用户列表</el-menu-item>
+						<el-menu-item index="TrainInfoList">列车信息</el-menu-item>
 						<el-menu-item index="shopList">商家列表</el-menu-item>
 						<el-menu-item index="foodList">食品列表</el-menu-item>
 						<el-menu-item index="orderList">订单列表</el-menu-item>
@@ -61,6 +61,6 @@
 <style lang="less" scoped>
 	@import '../style/mixin';
 	.manage_page{
-		
+
 	}
 </style>

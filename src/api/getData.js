@@ -193,11 +193,15 @@ export const deleteFood = food_id => fetch('/shopping/v2/food/' + food_id, {}, '
 export const getUserList = data => fetch('/v1/users/list', data);
 
 /**
- * 获取用户数量
+ * 获取列车总信息
  */
 
-export const getUserCount = data => fetch('/v1/users/count', data);
+export const getTrainInfoData = data => fetch('/train/traininfo', data);
+/**
+ * 搜索列车信息
+ */
 
+export const SearchTrainInfoData = data => fetch('/train/searchtraininfo', data);
 /**
  * 获取订单列表
  */
