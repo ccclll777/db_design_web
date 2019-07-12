@@ -21,10 +21,14 @@ const uploadImg = r => require.ensure([], () => r(require('@/page/uploadImg')), 
 const vueEdit = r => require.ensure([], () => r(require('@/page/vueEdit')), 'vueEdit');
 const UserInfo = r => require.ensure([], () => r(require('@/page/UserInfo')), 'UserInfo');
 const ChangeUserInfo = r => require.ensure([], () => r(require('@/page/ChangeUserInfo')), 'ChangeUserInfo');
+
 const ChangePassword = r => require.ensure([], () => r(require('@/page/ChangePassword')), 'ChangePassword');
+
+const PassengerInfo = r => require.ensure([], () => r(require('@/page/PassengerInfo')), 'PassengerInfo');
+
+const AddPassenger = r => require.ensure([], () => r(require('@/page/AddPassenger')), 'AddPassenger');
 const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
 const explain = r => require.ensure([], () => r(require('@/page/explain')), 'explain');
-
 const routes = [
 	{
 		path: '/',
@@ -98,13 +102,19 @@ const routes = [
                 path: '/ChangeUserInfo',
                 component: ChangeUserInfo,
                 meta: ['个人信息', '修改个人信息'],
-        },
-            {
+        }, {
                 path: '/ChangePassword',
                 component: ChangePassword,
-                meta: ['个人信息', '修改个人信息'],
-            }
-        ,{
+                meta: ['个人信息', '修改密码'],
+        }, {
+                path: '/PassengerInfo',
+                component: PassengerInfo,
+                meta: ['个人信息', '乘客信息'],
+        },{
+                path: '/AddPassenger',
+                component: AddPassenger,
+                meta: ['个人信息', '添加乘客信息'],
+        },{
 			path: '/sendMessage',
 			component: sendMessage,
 			meta: ['设置', '发送通知'],

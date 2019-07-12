@@ -1,30 +1,29 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
-        <header class="admin_title">修改个人信息</header>
-        <el-form class="form_contianer" :model="ChangeForm" ref="ChangeForm">
-            <el-form-item prop="user_real_name">
-                <el-input v-model="ChangeForm.user_real_name" placeholder="真实姓名"><span>dsfsf</span></el-input>
+        <header class="admin_title">添加乘客</header>
+
+        <el-form :rules="rules" class="form_contianer" :model="ChangeForm" ref="ChangeForm">
+            <el-form-item prop="passenger_phone_number">
+                <el-input v-model="ChangeForm.passenger_phone_number" placeholder="电话号码"><span>dsfsf</span></el-input>
             </el-form-item>
-            <el-form-item prop="user_email">
-                <el-input  placeholder="邮箱" v-model="ChangeForm.user_email"></el-input>
+            <el-form-item prop="passenger_real_name">
+                <el-input  placeholder="真实姓名" v-model="ChangeForm.passenger_real_name"></el-input>
             </el-form-item>
-            <el-form-item prop="user_type">
-                <el-input  placeholder="用户类型" v-model="ChangeForm.user_type"></el-input>
+            <el-form-item prop="passenger_id_number">
+                <el-input  placeholder="身份证号" v-model="ChangeForm.passenger_id_number"></el-input>
             </el-form-item>
-            <el-form-item prop="user_gender">
-                <el-input  placeholder="性别" v-model="ChangeForm.user_gender"></el-input>
+            <el-form-item prop="user_passenger_type">
+                <el-input  placeholder="乘客类型（成人/学生）" v-model="ChangeForm.passenger_type"></el-input>
             </el-form-item>
-            <el-form-item prop="user_id_number">
-                <el-input  placeholder="身份证号" v-model="ChangeForm.user_id_number"></el-input>
+            <el-form-item prop="passenger_address">
+                <el-input  placeholder="乘客地址" v-model="ChangeForm.passenger_address"></el-input>
             </el-form-item>
-            <el-form-item prop="user_address">
-                <el-input  placeholder="地址" v-model="ChangeForm.user_address"></el-input>
-            </el-form-item>
+
 
 
             <el-form-item>
-                <el-button type="primary" @click="submitForm('ChangeForm')" class="submit_btn">修改</el-button>
+                <el-button type="primary" @click="submitForm('ChangeForm')" class="submit_btn">添加乘客</el-button>
             </el-form-item>
         </el-form>
     </div>
@@ -34,28 +33,42 @@
 <script>
     import headTop from '../components/headTop'
     import {mapState} from 'vuex'
-    import {getUserInfo,changeUserInfo} from '@/api/getData'
+    import {addPassengerInfo} from '@/api/getData'
     import {setCookie,getCookie} from "../config/store_cookie";
     export default {
         data(){
             return {
                 tableData:{},
                 ChangeForm: {
-                    user_phone_number: '',
-                    user_real_name:'',
-                    user_email:'',
-                    user_id_number:'',
-                    user_type:'',
-                    user_gender:'',
-                    user_address:''
+                    passenger_phone_number: '',
+                    passenger_real_name:'',
+                    passenger_id_number:'',
+                    passenger_type:'',
+                    passenger_address:''
 
+                },
+                rules: {
+                    passenger_phone_number: [
+                        { required: true, message: '请输入内容', trigger: 'blur' },
+                    ],
+                    passenger_real_name: [
+                        { required: true, message: '请输入内容', trigger: 'blur' }
+                    ],
+                    passenger_id_number: [
+                        { required: true, message: '请输入内容', trigger: 'blur' }
+                    ],
+                    passenger_type: [
+                        { required: true, message: '请输入内容', trigger: 'blur' }
+                    ],
+                    passenger_address: [
+                        { required: true, message: '请输入内容', trigger: 'blur' }
+                    ],
                 },
                 showLogin: true,
             }
         },
         created(){
-            console.log(getCookie("token"))
-            this.initData();
+
         },
         components: {
             headTop,
@@ -63,43 +76,25 @@
         computed: {
         },
         methods: {
-            async initData()
-            {
-                console.log(getCookie("token"))
-
-                const UserInfoData = await getUserInfo({token:getCookie("token")})
-                if (UserInfoData.status == 1) {
-                    this.$message({
-                        type: 'success',
-                        message: '成功'
-                    });
-                    this.ChangeForm = UserInfoData.data;
-                }else{
-                    this.$message({
-                        type: 'error',
-                        message: res.success
-                    });
-                }
-            },
             async submitForm(formName) {
-                this.$refs[formName].validate(async (valid) => {
+              this.$refs[formName].validate(async (valid) => {
                     if (valid) {
 
-                        const res = await changeUserInfo({token:getCookie("token"),user_phone_number: this.ChangeForm.user_phone_number,
-                            user_real_name:this.ChangeForm.user_real_name,user_email:this.ChangeForm.user_email,user_id_number:this.ChangeForm.user_id_number
-                            ,user_type:this.ChangeForm.user_type,user_gender:this.ChangeForm.user_gender ,user_address:this.ChangeForm.user_address })
+                        const res = await addPassengerInfo({token:getCookie("token"),passenger_phone_number: this.ChangeForm.passenger_phone_number,
+                            passenger_real_name:this.ChangeForm.passenger_real_name,passenger_id_number:this.ChangeForm.passenger_id_number,passenger_type:this.ChangeForm.passenger_type
+                            , passenger_address:this.ChangeForm. passenger_address})
 
                         if (res.status == 1) {
                             this.$message({
                                 type: 'success',
-                                message: '修改成功'
+                                message: '添加成功'
                             });
 
-                           this.initData();
+                            this.initData();
                         }else{
                             this.$message({
                                 type: 'error',
-                                message: res.message
+                                message: "添加失败"
                             });
                         }
                     } else {

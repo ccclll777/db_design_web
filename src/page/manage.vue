@@ -24,7 +24,10 @@
                         <el-menu-item index="UserInfo">个人信息</el-menu-item>
                         <el-menu-item index="ChangeUserInfo">修改个人信息</el-menu-item>
                         <el-menu-item index="ChangePassword">修改密码</el-menu-item>
+                        <el-menu-item index="PassengerInfo">乘客信息</el-menu-item>
+                        <el-menu-item index="AddPassenger">添加乘客信息</el-menu-item>
                         <!-- <el-menu-item index="sendMessage">发送通知</el-menu-item> -->
+
                     </el-submenu>
 					<el-submenu index="4">
 						<template slot="title"><i class="el-icon-star-on"></i>图表</template>

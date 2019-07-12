@@ -23,8 +23,7 @@
     export default {
     	data(){
     		return {
-    			baseImgPath,
-                url:"http://b-ssl.duitang.com/uploads/item/201510/08/20151008192345_uPC5U.jpeg"
+                url:"https://39.105.44.114/123.jpeg"
     		}
     	},
     	created(){

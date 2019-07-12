@@ -6,7 +6,7 @@
             <el-card class="box-card" style="width: 1000px;margin-left: 80px;margin-top: 20px">
                 <div slot="header" class="clearfix">
                     <span>个人信息</span>
-                    <el-button style="float: right; padding: 3px 0" type="text">修改个人信息</el-button>
+                    <el-button style="float: right; padding: 3px 0"  @click="GoChangeUserInfo" type="text">修改个人信息</el-button>
                 </div>
                 <el-image
                     style="width: 100px; height: 100px"
@@ -80,6 +80,10 @@
                         message: '失败'
                     });
                 }
+            },
+            GoChangeUserInfo()
+            {
+                this.$router.push('/ChangeUserInfo      ')
             }
         },
     }

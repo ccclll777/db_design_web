@@ -137,19 +137,19 @@
                         {
                             this.$message({
                                 type: 'success',
-                                message: '用户名重复'
+                                message: res.success
                             });
                         }
                         else if(res.status ==404){
                             this.$message({
                                 type: 'success',
-                                message: '两次密码输入不相同'
+                                message:res.success
                             });
                         }
                         else if(res.status ==405){
                             this.$message({
                                 type: 'success',
-                                message: '注册失败'
+                                message: res.success
                             });
                         }
 
