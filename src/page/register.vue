@@ -1,12 +1,12 @@
 <template>
     <div class="login_page fillcontain">
         <transition name="form-fade" mode="in-out">
-            <section class="form_contianer" v-show="showLogin">
+            <section class="form_contianer" v-show="showLogin" style="background-color: #243654">
                 <div class="manage_tip">
                     <p>12308注册</p>
                 </div>
 
-                <el-form :model="registerForm" :rules="rules" ref="registerForm">
+                <el-form :model="registerForm" :rules="rules" ref="registerForm" style="background-color: #243654">
                     <el-form-item prop="user_phone_number">
                         <el-input v-model="registerForm.user_phone_number" placeholder="用户名"><span>dsfsf</span></el-input>
                     </el-form-item>
@@ -174,7 +174,7 @@
 <style lang="less" scoped>
     @import '../style/mixin';
     .login_page{
-        background-color: #324057;
+        background-color: #243654;
     }
     .manage_tip{
         position: absolute;

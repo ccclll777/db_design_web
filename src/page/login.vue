@@ -1,11 +1,11 @@
 <template>
   	<div class="login_page fillcontain">
 	  	<transition name="form-fade" mode="in-out">
-	  		<section class="form_contianer" v-show="showLogin">
+	  		<section class="form_contianer" v-show="showLogin" style="background-color: #243654">
 		  		<div class="manage_tip">
 		  			<p>12308登陆</p>
 		  		</div>
-		    	<el-form :model="loginForm" :rules="rules" ref="loginForm">
+		    	<el-form :model="loginForm" :rules="rules" ref="loginForm" style="background-color: #243654">
 					<el-form-item prop="username">
 						<el-input v-model="loginForm.username" placeholder="用户名"><span>dsfsf</span></el-input>
 					</el-form-item>
@@ -32,7 +32,7 @@
 			return {
 				loginForm: {
 					username: '15665825817',
-					password: '1234567',
+					password: '1111111',
 				},
 				rules: {
 					username: [
@@ -97,7 +97,7 @@
 <style lang="less" scoped>
 	@import '../style/mixin';
 	.login_page{
-		background-color: #324057;
+		background-color: #243654;
 	}
 	.manage_tip{
 		position: absolute;

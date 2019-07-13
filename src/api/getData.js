@@ -30,6 +30,8 @@ export const addPassengerInfo= data => fetch('/passenger/addpassengerinfo', data
 export const deletePassengerInfo= data => fetch('/passenger/deletepassengerinfo', data);
 
 export const searchTrainSchedule= data => fetch('/trainSchedule/searchTrainSchedule', data);
+
+export const getTrainScheduleList= data => fetch('/trainSchedule/getTrainScheduleList', data);
 /**
  * api请求量
  */

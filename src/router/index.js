@@ -25,7 +25,7 @@ const ChangeUserInfo = r => require.ensure([], () => r(require('@/page/ChangeUse
 const ChangePassword = r => require.ensure([], () => r(require('@/page/ChangePassword')), 'ChangePassword');
 
 const PassengerInfo = r => require.ensure([], () => r(require('@/page/PassengerInfo')), 'PassengerInfo');
-const test = r => require.ensure([], () => r(require('@/page/test')), 'test');
+
 const AddPassenger = r => require.ensure([], () => r(require('@/page/AddPassenger')), 'AddPassenger');
 const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
 const explain = r => require.ensure([], () => r(require('@/page/explain')), 'explain');
@@ -71,10 +71,6 @@ const routes = [
 			component: foodList,
 			meta: ['数据管理', '食品列表'],
 		},{
-            path: '/test',
-            component: test,
-            meta: ['数据管理', '食品列表'],
-        },{
 			path: '/orderList',
 			component: orderList,
 			meta: ['数据管理', '订单列表'],
