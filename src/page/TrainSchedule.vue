@@ -1,67 +1,78 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
+        <el-form :model="searchForm"  ref="searchForm">
+        <el-row :gutter="20" style="margin-left: 300px;margin-top: 10px;width: 800px">
+            <el-col :span="4"><div class="grid-content bg-purple">
+                <el-input v-model="searchForm.start_station" placeholder="请输入始发站">
+
+                </el-input>
+            </div></el-col>
+            <el-col :span="4"><div class="grid-content bg-purple">
+                <el-input v-model="searchForm.end_station" placeholder="请输入终点站">
+
+                </el-input>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple">
+                <div class="block">
+                    <el-date-picker
+                        v-model="searchForm.date"
+                        type="date"
+                        placeholder="选择日期">
+                    </el-date-picker>
+                </div>
+            </div></el-col>
+            <el-col :span="6"><div class="grid-content bg-purple">
+                <el-button type="primary" round  @click="submitForm('searchForm')">搜索</el-button>
+            </div></el-col>
+        </el-row>
+        </el-form>
         <div class="table_container">
             <el-table
                 :data="tableData"
-                style="width: 100%">
-                <el-table-column type="expand">
-                  <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
-                      <el-form-item label="店铺名称">
-                        <span>{{ props.row.name }}</span>
-                      </el-form-item>
-                      <el-form-item label="店铺地址">
-                        <span>{{ props.row.address }}</span>
-                      </el-form-item>
-                      <el-form-item label="店铺介绍">
-                        <span>{{ props.row.description }}</span>
-                      </el-form-item>
-                      <el-form-item label="店铺 ID">
-                        <span>{{ props.row.id }}</span>
-                      </el-form-item>
-                      <el-form-item label="联系电话">
-                        <span>{{ props.row.phone }}</span>
-                      </el-form-item>
-                      <el-form-item label="评分">
-                        <span>{{ props.row.rating }}</span>
-                      </el-form-item>
-                      <el-form-item label="销售量">
-                        <span>{{ props.row.recent_order_num }}</span>
-                      </el-form-item>
-                      <el-form-item label="分类">
-                        <span>{{ props.row.category }}</span>
-                      </el-form-item>
-                    </el-form>
-                  </template>
+                style="width: 100%"
+                row-key="train_number"
+                :tree-props="{children: 'tableData_c', hasChildren: 'true'}">
+
+                <el-table-column
+                  label="车次"
+                  prop="train_number">
                 </el-table-column>
                 <el-table-column
-                  label="店铺名称"
-                  prop="name">
+                  label="出发站"
+                  prop="start_station">
                 </el-table-column>
                 <el-table-column
-                  label="店铺地址"
-                  prop="address">
+                  label="到达站"
+                  prop="end_station">
                 </el-table-column>
                 <el-table-column
-                  label="店铺介绍"
-                  prop="description">
+                    label="出发时间"
+                    prop="start_time">
                 </el-table-column>
-                <el-table-column label="操作" width="200">
-                  <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                    <el-button
-                      size="mini"
-                      type="Success"
-                      @click="addFood(scope.$index, scope.row)">添加食品</el-button>
-                    <el-button
-                      size="mini"
-                      type="danger"
-                      @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-                  </template>
+                <el-table-column
+                    label="到达时间"
+                    prop="arrive_time">
                 </el-table-column>
+                <el-table-column
+                    label="运行时间"
+                    prop="running_time">
+                </el-table-column>
+                <!--<el-table-column label="操作" width="200">-->
+                  <!--<template slot-scope="scope">-->
+                    <!--<el-button-->
+                      <!--size="mini"-->
+                      <!--@click="handleEdit(scope.$index, scope.row)">编辑</el-button>-->
+                    <!--<el-button-->
+                      <!--size="mini"-->
+                      <!--type="Success"-->
+                      <!--@click="addFood(scope.$index, scope.row)">添加食品</el-button>-->
+                    <!--<el-button-->
+                      <!--size="mini"-->
+                      <!--type="danger"-->
+                      <!--@click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
+                  <!--</template>-->
+                <!--</el-table-column>-->
             </el-table>
             <div class="Pagination">
                 <el-pagination
@@ -125,7 +136,7 @@
 <script>
     import headTop from '../components/headTop'
     import {baseUrl, baseImgPath} from '@/config/env'
-    import {cityGuess, getResturants, getResturantsCount, foodCategory, updateResturant, searchplace, deleteResturant} from '@/api/getData'
+    import {cityGuess, getResturants, getResturantsCount, foodCategory, updateResturant, searchplace, deleteResturant,searchTrainSchedule} from '@/api/getData'
     export default {
         data(){
             return {
@@ -135,13 +146,40 @@
                 offset: 0,
                 limit: 20,
                 count: 0,
-                tableData: [],
+                tableData: [
+                    {
+                         train_number:"01",
+                         start_station:"02",
+                         end_station:"03",
+                        start_time:"04",
+                       arrive_time:"05",
+                        running_time:"06",
+                        tableData_c:[
+                            {
+                                train_number:"01",
+                                start_station:"02",
+                                end_station:"03",
+                                start_time:"04",
+                                arrive_time:"05",
+                                running_time:"06"
+                            }
+                        ]
+
+                    }
+                ],
                 currentPage: 1,
                 selectTable: {},
                 dialogFormVisible: false,
                 categoryOptions: [],
                 selectedCategory: [],
                 address: {},
+                searchForm:
+                    {
+                        start_station: '',
+                        end_station:"",
+                        date:""
+
+                    }
             }
         },
         created(){
@@ -310,6 +348,73 @@
                 }catch(err){
                     console.log('更新餐馆信息失败', err);
                 }
+            },
+            async submitForm(formName) {
+                this.$refs[formName].validate(async (valid) => {
+                    if (valid) {
+                        console.log(this.searchForm.date);
+                        const res = await searchTrainSchedule({train_start_station:this.searchForm.start_station , train_end_station:this.searchForm.end_station ,date :this.searchForm.date})
+                        if (res.status == 1) {
+                            this.$message({
+                                type: 'success',
+                                message: '搜索成功'
+
+                            });
+                            this.tableData = [];
+                            for(var i = 0 ; i < res.trainScheduleInfoList.length ; i++ )
+                            {
+
+                                const tableData = {};
+                                tableData.train_number = res.trainScheduleInfoList[i].train_number;
+                                tableData.start_station =res.trainScheduleInfoList[i].start_station;
+                                tableData.end_station = res.trainScheduleInfoList[i].end_station;
+                                tableData.start_time = res.trainScheduleInfoList[i].start_time;
+                                tableData.arrive_time = res.trainScheduleInfoList[i].arrive_time;
+                                const start_running_time = res.trainScheduleInfoList[i].start_running_time;
+                                const end_running_time = res.trainScheduleInfoList[i].end_running_time;
+                                const start_running_time2 = start_running_time.split(":");
+                                const end_running_time2 = end_running_time.split(":");
+                                const start_second =  parseInt(start_running_time2[0]) *60   + parseInt(start_running_time2[1]);
+                                const end_second =  parseInt(end_running_time2[0]) *60   + parseInt(end_running_time2[1]);
+                                const sub  = end_second -start_second;
+                                const h = Math.floor(sub/60);
+                                const min = sub%60;
+                                const h2   =   h.toString();
+                                const min2   =   min.toString();
+                                let min3 = "";
+                                let h3 = "";
+                                if(h2.length == 1)
+                                {
+                                     h3 = "0" +h2;
+                                }
+                                else
+                                {
+                                     h3 = h2;
+                                }
+                                if(min2.length == 1)
+                                {
+                                     min3 = "0" +min2;
+                                }
+                                else
+                                {
+                                     min3 = min2;
+                                }
+
+                                const result = h3+":"+min3;
+                                console.log(result);
+                                tableData.running_time = result;
+                                this.tableData.push(tableData);
+
+                            }
+                        }else{
+                            this.$message({
+                                type: 'error',
+                                message: '搜索失败，没有对应的列车'
+                            });
+                        }
+                    }
+
+                });
             },
         },
     }

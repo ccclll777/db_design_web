@@ -11,7 +11,7 @@ const addShop = r => require.ensure([], () => r(require('@/page/addShop')), 'add
 const addGoods = r => require.ensure([], () => r(require('@/page/addGoods')), 'addGoods');
 const TrainInfoList = r => require.ensure([], () => r(require('@/page/TrainInfoList')), 'TrainInfoList');
 const TrainParkingInfo = r => require.ensure([], () => r(require('@/page/TrainParkingInfo')), 'TrainParkingInfo');
-const shopList = r => require.ensure([], () => r(require('@/page/shopList')), 'shopList');
+const TrainSchedule = r => require.ensure([], () => r(require('@/page/TrainSchedule')), 'TrainSchedule');
 const foodList = r => require.ensure([], () => r(require('@/page/foodList')), 'foodList');
 const orderList = r => require.ensure([], () => r(require('@/page/orderList')), 'orderList');
 const adminList = r => require.ensure([], () => r(require('@/page/adminList')), 'adminList');
@@ -25,7 +25,7 @@ const ChangeUserInfo = r => require.ensure([], () => r(require('@/page/ChangeUse
 const ChangePassword = r => require.ensure([], () => r(require('@/page/ChangePassword')), 'ChangePassword');
 
 const PassengerInfo = r => require.ensure([], () => r(require('@/page/PassengerInfo')), 'PassengerInfo');
-
+const test = r => require.ensure([], () => r(require('@/page/test')), 'test');
 const AddPassenger = r => require.ensure([], () => r(require('@/page/AddPassenger')), 'AddPassenger');
 const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
 const explain = r => require.ensure([], () => r(require('@/page/explain')), 'explain');
@@ -63,14 +63,18 @@ const routes = [
                 component: TrainParkingInfo,
                 meta: ['数据管理', '列车时刻表'],
         },{
-			path: '/shopList',
-			component: shopList,
-			meta: ['数据管理', '商家列表'],
+			path: '/TrainSchedule',
+			component: TrainSchedule,
+			meta: ['数据管理', '列车查询'],
 		},{
 			path: '/foodList',
 			component: foodList,
 			meta: ['数据管理', '食品列表'],
 		},{
+            path: '/test',
+            component: test,
+            meta: ['数据管理', '食品列表'],
+        },{
 			path: '/orderList',
 			component: orderList,
 			meta: ['数据管理', '订单列表'],

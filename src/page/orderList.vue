@@ -58,7 +58,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import {getOrderList, getOrderCount, getResturantDetail, getUserInfo, getAddressById} from '@/api/getData'
+    import {getOrderList, getOrderCount, getResturantDetail, getUserInfo} from '@/api/getData'
     export default {
         data(){
             return {
@@ -123,7 +123,6 @@
             	if (status) {
             		const restaurant = await getResturantDetail(row.restaurant_id);
 	            	const userInfo = await getUserInfo(row.user_id);
-	            	const addressInfo = await getAddressById(row.address_id);
 
 	                this.tableData.splice(row.index, 1, {...row, ...{restaurant_name: restaurant.name, restaurant_address: restaurant.address, address: addressInfo.address, user_name: userInfo.username}});
                     this.$nextTick(() => {
