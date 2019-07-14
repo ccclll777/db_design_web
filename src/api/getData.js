@@ -23,15 +23,17 @@ export const getAdminInfo = data => fetch('/user/info',data,'GET');
 export const getUserInfo = data => fetch('/user/userinfo',data,'GET');
 export const changeUserInfo = data => fetch('/user/changeuserinfo', data, 'POST');
 export const changePassword= data => fetch('/user/changepassword', data, 'POST');
-export const getPassengerInfo= data => fetch('/passenger/getpassengerinfo', data);
+export const getPassengerInfo= data => fetch('/passenger/getPassengerInfo', data);
 
-export const addPassengerInfo= data => fetch('/passenger/addpassengerinfo', data,'POST');
+export const addPassengerInfo= data => fetch('/passenger/addPassengerInfo', data,'POST');
 
-export const deletePassengerInfo= data => fetch('/passenger/deletepassengerinfo', data);
+export const deletePassengerInfo= data => fetch('/passenger/deletePassengerInfo', data);
 
 export const searchTrainSchedule= data => fetch('/trainSchedule/searchTrainSchedule', data);
 
 export const getTrainScheduleList= data => fetch('/trainSchedule/getTrainScheduleList', data);
+
+export const queryTrainTicket= data => fetch('/query/queryTrainTicket', data);
 /**
  * api请求量
  */

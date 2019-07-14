@@ -12,7 +12,7 @@ const addGoods = r => require.ensure([], () => r(require('@/page/addGoods')), 'a
 const TrainInfoList = r => require.ensure([], () => r(require('@/page/TrainInfoList')), 'TrainInfoList');
 const TrainParkingInfo = r => require.ensure([], () => r(require('@/page/TrainParkingInfo')), 'TrainParkingInfo');
 const TrainSchedule = r => require.ensure([], () => r(require('@/page/TrainSchedule')), 'TrainSchedule');
-const foodList = r => require.ensure([], () => r(require('@/page/foodList')), 'foodList');
+const ticketInquiry = r => require.ensure([], () => r(require('@/page/ticketInquiry')), 'ticketInquiry');
 const orderList = r => require.ensure([], () => r(require('@/page/orderList')), 'orderList');
 const adminList = r => require.ensure([], () => r(require('@/page/adminList')), 'adminList');
 const visitor = r => require.ensure([], () => r(require('@/page/visitor')), 'visitor');
@@ -67,9 +67,9 @@ const routes = [
 			component: TrainSchedule,
 			meta: ['数据管理', '列车查询'],
 		},{
-			path: '/foodList',
-			component: foodList,
-			meta: ['数据管理', '食品列表'],
+			path: '/ticketInquiry',
+			component: ticketInquiry,
+			meta: ['车票查询及购买', '余票查询'],
 		},{
 			path: '/orderList',
 			component: orderList,

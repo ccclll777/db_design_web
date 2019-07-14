@@ -5,19 +5,23 @@
 				<el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
 					<el-menu-item index="manage"><i class="el-icon-menu"></i>首页</el-menu-item>
 					<el-submenu index="2">
-						<template slot="title"><i class="el-icon-document"></i>数据管理</template>
+						<template slot="title"><i class="el-icon-document"></i>列车信息查询</template>
 						<el-menu-item index="TrainInfoList">列车信息</el-menu-item>
                         <el-menu-item index="SearchTrainInfo">列车时刻表</el-menu-item>
 						<el-menu-item index="TrainSchedule">列车查询</el-menu-item>
-						<el-menu-item index="foodList">食品列表</el-menu-item>
-						<el-menu-item index="orderList">订单列表</el-menu-item>
+						<!--<el-menu-item index="foodList">食品列表</el-menu-item>-->
+						<!--<el-menu-item index="orderList">订单列表</el-menu-item>-->
 
-						<el-menu-item index="adminList">管理员列表</el-menu-item>
+						<!--<el-menu-item index="adminList">管理员列表</el-menu-item>-->
 					</el-submenu>
 					<el-submenu index="3">
-						<template slot="title"><i class="el-icon-plus"></i>添加数据</template>
+						<template slot="title"><i class="el-icon-plus"></i>车票查询及购买</template>
+                        <el-menu-item index="ticketInquiry">余票查询</el-menu-item>
+                        <el-menu-item index="orderList">订单列表</el-menu-item>
+                        <el-menu-item index="adminList">管理员列表</el-menu-item>
 						<el-menu-item index="addShop">添加商铺</el-menu-item>
 						<el-menu-item index="addGoods">添加商品</el-menu-item>
+
 
 					</el-submenu>
                     <el-submenu index="6">
