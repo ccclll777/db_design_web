@@ -196,10 +196,10 @@
                 [
 
                 ],
-                ticket_data;
+                ticket_data:
                 [
 
-                ]
+                ],
             };
         },
 
