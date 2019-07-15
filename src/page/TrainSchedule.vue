@@ -70,26 +70,7 @@
                 limit: 20,
                 count: 0,
                 tableData: [
-                    {
-                         train_number:"",
-                         start_station:"",
-                         end_station:"",
-                        start_time:"",
-                       arrive_time:"",
-                        running_time:"",
-                        tableData_c:[
-                            {
-                                train_number:"",
-                                start_station:"",
-                                end_station:"",
-                                start_time:"",
-                                arrive_time:"",
-                                running_time:""
-                            },
 
-                        ]
-
-                    }
                 ],
                 currentPage: 1,
                 selectTable: {},

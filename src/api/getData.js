@@ -34,6 +34,8 @@ export const searchTrainSchedule= data => fetch('/trainSchedule/searchTrainSched
 export const getTrainScheduleList= data => fetch('/trainSchedule/getTrainScheduleList', data);
 
 export const queryTrainTicket= data => fetch('/query/queryTrainTicket', data);
+
+export const queryTrainTicketNum= data => fetch('/query/queryTrainTicketNum', data);
 /**
  * api请求量
  */

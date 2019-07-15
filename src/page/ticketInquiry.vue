@@ -65,8 +65,82 @@
                     label="二等座/硬座"
                     prop="low_seat_price">
                 </el-table-column>
+                <el-table-column label="操作" width="200">
+                    <template slot-scope="scope">
+                        <el-button
+                            size="mini"
+                            @click="handleSearch(scope.$index,searchForm.datetime,scope.row.train_no,scope.row.start_no,scope.row.end_no,scope.row.train_number)">查看余票</el-button>
+                        <el-button
+                            size="mini"
+                            type="Success"
+                            @click="handleBuy(scope.$index,searchForm.datetime,scope.row.train_no,scope.row.start_no,scope.row.end_no,scope.row.train_number)">预定</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
+            <!-- Table -->
 
+            <el-dialog title="余座数" :visible.sync="dialogTableVisible_GD" style="width: 1500px">
+                <el-table :data="high_seat_GD">
+
+                    <el-table-column property="carriage_number" label="车厢号" width="150"></el-table-column>
+                    <el-table-column property="seat_type" label="座位类型" width="200"></el-table-column>
+                    <el-table-column property="A_num" label="A座"></el-table-column>
+                    <el-table-column property="B_num" label="B座"></el-table-column>
+                    <el-table-column property="C_num" label="C座"></el-table-column>
+                </el-table>
+                <el-table :data="medium_seat_GD">
+
+                    <el-table-column property="carriage_number" label="车厢号" width="150"></el-table-column>
+                    <el-table-column property="seat_type" label="座位类型" width="200"></el-table-column>
+                    <el-table-column property="A_num" label="A座"></el-table-column>
+                    <el-table-column property="B_num" label="B座"></el-table-column>
+                    <el-table-column property="C_num" label="C座"></el-table-column>
+                    <el-table-column property="D_num" label="D座"></el-table-column>
+                </el-table>
+                <el-table :data="low_seat_GD">
+
+                    <el-table-column property="carriage_number" label="车厢号" width="150"></el-table-column>
+                    <el-table-column property="seat_type" label="座位类型" width="200"></el-table-column>
+                    <el-table-column property="A_num" label="A座"></el-table-column>
+                    <el-table-column property="B_num" label="B座"></el-table-column>
+                    <el-table-column property="C_num" label="C座"></el-table-column>
+                    <el-table-column property="D_num" label="D座"></el-table-column>
+                    <el-table-column property="E_num" label="E座"></el-table-column>
+                </el-table>
+
+            </el-dialog>
+
+
+            <el-dialog title="余座数" :visible.sync="dialogTableVisible" style="width: 1500px">
+                <el-table :data="high_seat">
+
+                    <el-table-column property="carriage_number" label="车厢号" width="150"></el-table-column>
+                    <el-table-column property="seat_type" label="座位类型" width="200"></el-table-column>
+                    <el-table-column property="upper_num" label="上铺"></el-table-column>
+                    <el-table-column property="lower_num" label="下铺"></el-table-column>
+                </el-table>
+                <el-table :data="medium_seat">
+
+                    <el-table-column property="carriage_number" label="车厢号" width="150"></el-table-column>
+                    <el-table-column property="seat_type" label="座位类型" width="200"></el-table-column>
+                    <el-table-column property="upper_num" label="上铺"></el-table-column>
+                    <el-table-column property="middle_num" label="中铺"></el-table-column>
+                    <el-table-column property="lower_num" label="下铺"></el-table-column>
+                </el-table>
+                <el-table :data="low_seat">
+
+                    <el-table-column property="carriage_number" label="车厢号" width="150"></el-table-column>
+                    <el-table-column property="seat_type" label="座位类型" width="200"></el-table-column>
+                    <el-table-column property="A_num" label="A座"></el-table-column>
+                    <el-table-column property="B_num" label="B座"></el-table-column>
+                    <el-table-column property="C_num" label="C座"></el-table-column>
+                    <el-table-column property="D_num" label="D座"></el-table-column>
+                    <el-table-column property="E_num" label="E座"></el-table-column>
+                    <el-table-column property="F_num" label="F座"></el-table-column>
+                </el-table>
+
+
+            </el-dialog>
         </div>
     </div>
 </template>
@@ -74,38 +148,93 @@
 <script>
     import headTop from '../components/headTop'
     import {baseUrl, baseImgPath} from '@/config/env'
-    import {queryTrainTicket} from '@/api/getData'
+    import {queryTrainTicket,queryTrainTicketNum} from '@/api/getData'
+    import {TickerOrder} from "../router/index"
     export default {
         data(){
             return {
-                baseUrl,
-                baseImgPath,
-                city: {},
-                offset: 0,
-                limit: 20,
-                count: 0,
                 tableData: [
-                    {
-                        train_number:"01",
-                        start_station:"02",
-                        end_station:"03",
-                        start_time:"04",
-                        arrive_time:"05",
-                        running_time:"06",
-                        high_seat_price:"07",
-                        medium_seat_price:"08",
-                        low_seat_price:"09"
-
-                    }
                 ],
-
+                selectTable: {},
                 searchForm:
                     {
                         start_station: '',
                         end_station:"",
                         datetime:""
 
+                    },
+                high_seat:[
+                    {
+                        carriage_number:"1",
+                        seat_type:"2",
+                        upper_num:"3",
+                        lower_num:"4"
                     }
+                ],
+                medium_seat:[
+                    {
+                        carriage_number:"1",
+                        seat_type:"2",
+                        upper_num:"3",
+                        middle_num:"5",
+                        lower_num:"4"
+                    }
+                ],
+                low_seat:[
+                    {
+                        carriage_number:"1",
+                        seat_type:"2",
+                        A_num:"3",
+                        B_num:"5",
+                        C_num:"4",
+                        D_num:"4",
+                        E_num:"4",
+                        F_num:"4"
+                    }
+                ],
+                high_seat_GD:[
+                    {
+                        carriage_number:"1",
+                        seat_type:"2",
+                        A_num:"3",
+                        B_num:"5",
+                        C_num:"4"
+                    }
+                ],
+                medium_seat_GD:[
+                    {
+                        carriage_number:"1",
+                        seat_type:"2",
+                        A_num:"3",
+                        B_num:"5",
+                        C_num:"4",
+                        D_num:"4"
+                    }
+                ],
+                low_seat_GD:[
+                    {
+                        carriage_number:"1",
+                        seat_type:"2",
+                        A_num:"3",
+                        B_num:"5",
+                        C_num:"4",
+                        D_num:"4",
+                        E_num:"4"
+                    }
+                ],
+                dialogTableVisible: false,
+                dialogTableVisible_GD: false,
+                form: {
+                    name: '',
+                    region: '',
+                    date1: '',
+                    date2: '',
+                    delivery: false,
+                    type: [],
+                    resource: '',
+                    desc: ''
+                },
+                formLabelWidth: '120px'
             }
         },
         created(){
@@ -118,13 +247,212 @@
             async submitForm(formName) {
                 this.$refs[formName].validate(async (valid) => {
                     if (valid) {
-                        this.tableData = [];
-                        const res = await queryTrainTicket({train_start_station:this.searchForm.start_station , train_end_station:this.searchForm.end_station ,datetime :this.searchForm.datetime})
+                        let date;
+                        date= new Date(this.searchForm.datetime);
 
+                        let datetime2 = date.getFullYear()+'-'+this.checkTime(date.getMonth()+1)+'-'+this.checkTime(date.getDate());
+                        this.tableData = [];
+                        const res = await queryTrainTicket({train_start_station:this.searchForm.start_station , train_end_station:this.searchForm.end_station ,datetime :datetime2})
+                            if(res.status == 1)
+                            {
+                                this.$message({
+                                    type: 'success',
+                                    message: '查询成功'
+                                });
+                                this.tableData = [];
+                                for(let i = 0 ; i < res.trainTicketPriceInfoList.length ; i++ )
+                                {
+                                    const tableData = {};
+                                    tableData.train_no = res.trainTicketPriceInfoList[i].train_no;
+                                    tableData.train_number = res.trainTicketPriceInfoList[i].train_number;
+                                    tableData.start_station =res.trainTicketPriceInfoList[i].start_station;
+                                    tableData.end_station = res.trainTicketPriceInfoList[i].end_station;
+                                    tableData.start_time =res.trainTicketPriceInfoList[i].start_time;
+                                    tableData.arrive_time = res.trainTicketPriceInfoList[i].arrive_time;
+                                    tableData.high_seat_price = res.trainTicketPriceInfoList[i].high_seat_price;
+                                    tableData.medium_seat_price = res.trainTicketPriceInfoList[i].medium_seat_price ;
+                                    tableData.low_seat_price = res.trainTicketPriceInfoList[i].low_seat_price;
+                                    tableData.end_no = res.trainTicketPriceInfoList[i].end_no;
+                                    tableData.start_no =res.trainTicketPriceInfoList[i].start_no;
+
+                                    this.tableData.push(tableData);
+                                }
+                                console.log(this.tableData)
+                            }
+                            else if(res.status == 404)
+                            {
+                                this.$message({
+                                    type: 'error',
+                                    message: '没有符合条件的列车'
+                                });
+                            }else if(res.status == 406)
+                            {
+                                this.$message({
+                                    type: 'error',
+                                    message: '没有符合条件的列车'
+                                });
+                            }
+                            else {
+                                this.$message({
+                                    type: 'error',
+                                    message: '查询失败'
+                                });
+                            }
                     }
 
                 });
+            },
+            async handleSearch(index,datetime,train_no,start_no,end_no,train_number)
+            {
+                let date;
+                date= new Date(datetime);
+
+                let datetime2 = date.getFullYear()+'-'+this.checkTime(date.getMonth()+1)+'-'+this.checkTime(date.getDate());
+
+                const res = await queryTrainTicketNum({datetime:datetime2, train_no:train_no ,start_no :start_no,end_no:end_no,train_number:train_number})
+                if(res.status == 1)
+                {
+                    if(train_number[0] == "G" || train_number[0] == "D")
+                    {
+                        this.high_seat_GD = [];
+                        this.medium_seat_GD = [];
+                        this.low_seat_GD = [];
+                        for(let i = 0 ; i<res.trainRemainingSeats_gds.length ; i++)
+                        {
+                            if(res.trainRemainingSeats_gds[i].seat_type == "特等座")
+                            {
+                                let high_temp = {};
+                                high_temp.carriage_number = res.trainRemainingSeats_gds[i].carriage_no;
+                                high_temp.seat_type = res.trainRemainingSeats_gds[i].seat_type;
+                                high_temp.A_num = res.trainRemainingSeats_gds[i].high_seat_GD_A;
+                                high_temp.B_num = res.trainRemainingSeats_gds[i].high_seat_GD_B;
+                                high_temp.C_num = res.trainRemainingSeats_gds[i].high_seat_GD_C;
+                                this.high_seat_GD.push(high_temp);
+                            }
+                            if(res.trainRemainingSeats_gds[i].seat_type == "一等座")
+                            {
+                                let high_temp = {};
+                                high_temp.carriage_number = res.trainRemainingSeats_gds[i].carriage_no;
+                                high_temp.seat_type = res.trainRemainingSeats_gds[i].seat_type;
+                                high_temp.A_num = res.trainRemainingSeats_gds[i].medium_seat_GD_A;
+                                high_temp.B_num = res.trainRemainingSeats_gds[i].medium_seat_GD_B;
+                                high_temp.C_num = res.trainRemainingSeats_gds[i].medium_seat_GD_C;
+                                high_temp.D_num = res.trainRemainingSeats_gds[i].medium_seat_GD_D;
+                                this.medium_seat_GD.push(high_temp);
+                            }
+                            if(res.trainRemainingSeats_gds[i].seat_type == "二等座")
+                            {
+                                let high_temp = {};
+                                high_temp.carriage_number = res.trainRemainingSeats_gds[i].carriage_no;
+                                high_temp.seat_type = res.trainRemainingSeats_gds[i].seat_type;
+                                high_temp.A_num = res.trainRemainingSeats_gds[i].low_seat_GD_A;
+                                high_temp.B_num = res.trainRemainingSeats_gds[i].low_seat_GD_B;
+                                high_temp.C_num = res.trainRemainingSeats_gds[i].low_seat_GD_C;
+                                high_temp.D_num = res.trainRemainingSeats_gds[i].low_seat_GD_D;
+                                high_temp.E_num = res.trainRemainingSeats_gds[i].low_seat_GD_E;
+                                this.low_seat_GD.push(high_temp);
+                            }
+                        }
+                        this.dialogTableVisible_GD = true
+
+                    }
+                    else
+                    {
+                        this.high_seat = []
+                        this.medium_seat = []
+                        this.low_seat = []
+                        for(let i = 0 ; i<res.trainRemainingSeats.length ; i++)
+                        {
+                            if(res.trainRemainingSeats[i].seat_type == "软卧")
+                            {
+                                let high_temp = {};
+                                high_temp.carriage_number = res.trainRemainingSeats[i].carriage_no;
+                                high_temp.seat_type = res.trainRemainingSeats[i].seat_type;
+                                high_temp.upper_num = res.trainRemainingSeats[i].high_seat_upper;
+                                high_temp.lower_num = res.trainRemainingSeats[i].high_seat_lower;
+                                this.high_seat.push(high_temp);
+                            }
+                            if(res.trainRemainingSeats[i].seat_type == "硬卧")
+                            {
+                                let high_temp = {};
+                                high_temp.carriage_number = res.trainRemainingSeats[i].carriage_no;
+                                high_temp.seat_type = res.trainRemainingSeats[i].seat_type;
+                                high_temp.upper_num = res.trainRemainingSeats[i].medium_seat_upper;
+                                high_temp.middle_num = res.trainRemainingSeats[i].medium_seat_middle;
+                                high_temp.lower_num = res.trainRemainingSeats[i].medium_seat_lower;
+                                this.medium_seat.push(high_temp);
+                            }
+                            if(res.trainRemainingSeats[i].seat_type == "硬坐")
+                            {
+                                let high_temp = {};
+                                high_temp.carriage_number = res.trainRemainingSeats[i].carriage_no;
+                                high_temp.seat_type = "硬座";
+                                high_temp.A_num = res.trainRemainingSeats[i].low_seat_A;
+                                high_temp.B_num = res.trainRemainingSeats[i].low_seat_B;
+                                high_temp.C_num = res.trainRemainingSeats[i].low_seat_C;
+                                high_temp.D_num = res.trainRemainingSeats[i].low_seat_D;
+                                high_temp.E_num = res.trainRemainingSeats[i].low_seat_E;
+                                high_temp.F_num = res.trainRemainingSeats[i].low_seat_F;
+                                this.low_seat.push(high_temp);
+                            }
+                        }
+                        this.dialogTableVisible = true
+                    }
+                    this.$message({
+                        type: 'message',
+                        message: '查询成功'
+                    });
+                }
+                else if(res.status == 404)
+                {
+                    this.$message({
+                        type: 'error',
+                        message: '请输入正确时间'
+                    });
+                }
+                else
+                {
+                    this.$message({
+                        type: 'error',
+                        message: '查询失败'
+                    });
+                }
+
+            },
+            checkTime(i){
+                if(i<10){
+
+                    i = '0'+i
+
+                }
+
+                return i
+            },
+            handleBuy(index,datetime,train_no,start_no,end_no,train_number)
+            {
+                let date;
+                date= new Date(datetime);
+                console.log("date"+date);
+                console.log("train_no"+typeof train_number);
+                let datetime2 = date.getFullYear()+'-'+this.checkTime(date.getMonth()+1)+'-'+this.checkTime(date.getDate());
+                this.$router.push({
+                    path: '/TicketOrder',
+                    query: {
+                        datetime: datetime2,
+                        train_no: train_no,
+                        start_no:start_no,
+                        end_no:end_no,
+                        train_number:train_number,
+
+
+                    }
+                    /*query: {
+                        key: 'key',
+                        msgKey: this.msg
+                    }*/
+                })
             }
+
         },
     }
 </script>

@@ -8,10 +8,16 @@
                     <span>个人信息</span>
                     <el-button style="float: right; padding: 3px 0"  @click="GoChangeUserInfo" type="text">修改个人信息</el-button>
                 </div>
-                <el-image
-                    style="width: 100px; height: 100px"
-                    :src="url"
-                    :fit="fit"></el-image>
+                    <el-col :span="12">
+                        <div class="demo-basic--circle">
+                            <div class="block"><el-avatar :size="50" :src="url"></el-avatar></div>
+
+                        </div>
+                    </el-col>
+                    <!--<el-image-->
+                <!--style="width: 100px; height: 100px"-->
+                <!--:src="url"-->
+                <!--:fit="fit"></el-image>-->
                 <div  class="text item">
                     <span>真实姓名：</span><span>{{tableData.user_real_name}}</span>
                 </div>
@@ -49,7 +55,7 @@
         data(){
             return {
                 tableData:{},
-                url: 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg'
+                url: 'https://39.105.44.114/123.jpeg'
             }
         },
         created(){
