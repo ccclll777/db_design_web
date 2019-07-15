@@ -10,9 +10,18 @@
         </el-steps>
         <el-table :data="passenger_data" v-show="show_passenger" style="width: 1000px;margin-left: 80px;margin-top: 20px">
 
-            <el-table-column property="passenger_real_name" label="乘客姓名" width="150"></el-table-column>
-            <el-table-column property="passenger_phone_number" label="乘客电话号码" width="200"></el-table-column>
+            <el-table-column property="passenger_real_name" label="乘客姓名" ></el-table-column>
+            <el-table-column property="passenger_phone_number" label="乘客电话号码" ></el-table-column>
             <el-table-column property="passenger_id_number" label="身份证号"></el-table-column>
+            <el-table-column property="carriage_no" label="车厢号"></el-table-column>
+            <el-table-column property="seat_no" label="座位号"></el-table-column>
+            <el-table-column label="操作" width="100">
+                <template slot-scope="scope">
+                    <el-button size="mini" type="danger" @click="deletepassenger(scope.row.passenger_phone_number)">删除</el-button>
+
+                </template>
+            </el-table-column>
+
         </el-table>
         <div v-show="active === 1 && dialogTableVisible" style="margin-top: 40px ;margin-left: 200px;margin-right: 200px;">
             <el-table :data="high_seat">
@@ -21,6 +30,7 @@
                 <el-table-column property="seat_type" label="座位类型" width="100"></el-table-column>
                 <el-table-column property="upper_num" label="上铺" width="200"></el-table-column>
                 <el-table-column property="lower_num" label="下铺" width="200"></el-table-column>
+
             </el-table>
             <el-table :data="medium_seat">
 
@@ -43,33 +53,59 @@
             </el-table>
 
         </div>
-        <div v-show="active === 1 && dialogTableVisible_GD" style="margin-top: 40px ;margin-left: 200px;margin-right: 200px;">
+        <div v-show="active === 1 && dialogTableVisible_GD" style="margin-top: 40px ;margin-left: 80px;">
             <el-table :data="high_seat_GD">
 
                 <el-table-column property="carriage_number" label="车厢号" width="100"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型" width="100"></el-table-column>
-                <el-table-column property="A_num" label="A座" width="200"></el-table-column>
-                <el-table-column property="B_num" label="B座" width="200"></el-table-column>
-                <el-table-column property="C_num" label="C座" width="200"></el-table-column>
+                <el-table-column property="A_num" label="A座" width="150"></el-table-column>
+                <el-table-column property="B_num" label="B座" width="150"></el-table-column>
+                <el-table-column property="C_num" label="C座" width="150"></el-table-column>
+                <el-table-column label="操作" width="200">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'A')">A</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'B')">B</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'C')">C</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
             <el-table :data="medium_seat_GD">
 
                 <el-table-column property="carriage_number" label="车厢号" width="100"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型" width="100"></el-table-column>
-                <el-table-column property="A_num" label="A座" width="120"></el-table-column>
-                <el-table-column property="B_num" label="B座" width="120"></el-table-column>
-                <el-table-column property="C_num" label="C座" width="120"></el-table-column>
-                <el-table-column property="D_num" label="D座" width="120"></el-table-column>
+                <el-table-column property="A_num" label="A座" width="115"></el-table-column>
+                <el-table-column property="B_num" label="B座" width="115"></el-table-column>
+                <el-table-column property="C_num" label="C座" width="115"></el-table-column>
+                <el-table-column property="D_num" label="D座" width="115"></el-table-column>
+                <el-table-column label="操作" width="250">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'A')">A</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'B')">B</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'C')">C</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'D')">D</el-button>
+
+                    </template>
+                </el-table-column>
             </el-table>
             <el-table :data="low_seat_GD">
 
                 <el-table-column property="carriage_number" label="车厢号" width="100"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型" width="100"></el-table-column>
-                <el-table-column property="A_num" label="A座" width="100"></el-table-column>
-                <el-table-column property="B_num" label="B座" width="100"></el-table-column>
-                <el-table-column property="C_num" label="C座" width="100"></el-table-column>
-                <el-table-column property="D_num" label="D座" width="100"></el-table-column>
-                <el-table-column property="E_num" label="E座" width="100"></el-table-column>
+                <el-table-column property="A_num" label="A座" width="90"></el-table-column>
+                <el-table-column property="B_num" label="B座" width="90"></el-table-column>
+                <el-table-column property="C_num" label="C座" width="90"></el-table-column>
+                <el-table-column property="D_num" label="D座" width="90"></el-table-column>
+                <el-table-column property="E_num" label="E座" width="90"></el-table-column>
+                <el-table-column label="操作" width="300">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'A')">A</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'B')">B</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'C')">C</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'D')">D</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'E')">E</el-button>
+
+                    </template>
+                </el-table-column>
             </el-table>
 
         </div>
@@ -120,7 +156,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import {queryTrainTicketNum,getPassengerInfo} from '@/api/getData';
+    import {queryTrainTicketNum,getPassengerInfo,orderTrainTicket} from '@/api/getData';
     import {setCookie,getCookie} from "../config/store_cookie";
     export default {
         name: "TicketOrder",
@@ -135,6 +171,7 @@
                 dialogTableVisible: false,
                 dialogTableVisible_GD: false,
                 show_passenger:false,
+                passenger_count:0,
                 high_seat:[
 
                 ],
@@ -153,11 +190,13 @@
 
                 ],
                 tableDatas:[
-                    {
 
-                    }
                 ],
                 passenger_data:
+                [
+
+                ],
+                ticket_data;
                 [
 
                 ]
@@ -308,7 +347,35 @@
                 passenger_d.passenger_phone_number = passenger_phone_number;
                 passenger_d.passenger_id_number = passenger_id_number;
                 this.passenger_data.push(passenger_d);
+                this.passenger_count ++;
                 this.show_passenger = true;
+            },
+            handleAdd(carriage_no,seat_type,seat_number)
+            {
+                if(this.passenger_count >0)
+                {
+                    let temp_datas;
+                    temp_datas.carriage_no = carriage_no;
+                    temp_datas.seat_type = seat_type;
+
+                }
+                    console.log(this.datetime+this.train_no+this.start_no+this.end_no+this.train_number+carriage_no+seat_type+seat_number);
+
+            },
+            deletepassenger(passenger_phone_number)
+            {
+                for(let i = 0 ; i<this.passenger_data.length ; i++)
+                {
+                    if(this.passenger_data[i].passenger_phone_number == passenger_phone_number)
+                    {
+                        this.passenger_data.splice(i,1);
+                    }
+                }
+                this.passenger_count --;
+            },
+            async orderTicket(carriage_no,seat_type,seat_number)
+            {
+
             }
 
         },
@@ -337,7 +404,6 @@
         },
 
         mounted() {
-            // this.getTicketCount();
             this.getPassenger();
         }
 
