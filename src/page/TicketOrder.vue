@@ -13,8 +13,6 @@
             <el-table-column property="passenger_real_name" label="乘客姓名" ></el-table-column>
             <el-table-column property="passenger_phone_number" label="乘客电话号码" ></el-table-column>
             <el-table-column property="passenger_id_number" label="身份证号"></el-table-column>
-            <el-table-column property="carriage_no" label="车厢号"></el-table-column>
-            <el-table-column property="seat_no" label="座位号"></el-table-column>
             <el-table-column label="操作" width="100">
                 <template slot-scope="scope">
                     <el-button size="mini" type="danger" @click="deletepassenger(scope.row.passenger_phone_number)">删除</el-button>
@@ -23,33 +21,68 @@
             </el-table-column>
 
         </el-table>
-        <div v-show="active === 1 && dialogTableVisible" style="margin-top: 40px ;margin-left: 200px;margin-right: 200px;">
-            <el-table :data="high_seat">
+
+        <el-table :data="passenger_data" v-show="show_passenger_ticket" style="width: 1000px;margin-left: 80px;margin-top: 20px">
+
+            <el-table-column property="passenger_real_name" label="乘客姓名" ></el-table-column>
+            <el-table-column property="passenger_phone_number" label="乘客电话号码" ></el-table-column>
+            <el-table-column property="passenger_id_number" label="身份证号"></el-table-column>
+            <el-table-column property="carriage_no" label="车厢号"></el-table-column>
+            <el-table-column property="seat_type" label="座位类型"></el-table-column>
+            <el-table-column property="seat_no" label="座位号"></el-table-column>
+
+        </el-table>
+
+        <div v-show="active === 1 && dialogTableVisible" style="margin-top: 40px ;margin-left: 80px">
+            <el-table :data="high_seat" >
 
                 <el-table-column property="carriage_number" label="车厢号" width="100"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型" width="100"></el-table-column>
                 <el-table-column property="upper_num" label="上铺" width="200"></el-table-column>
                 <el-table-column property="lower_num" label="下铺" width="200"></el-table-column>
+                <el-table-column label="操作" width="200">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'上铺')">上铺</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'下铺')">下铺</el-button>
+                    </template>
+                </el-table-column>
 
             </el-table>
             <el-table :data="medium_seat">
 
                 <el-table-column property="carriage_number" label="车厢号" width="100"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型" width="100"></el-table-column>
-                <el-table-column property="upper_num" label="上铺" width="200"></el-table-column>
-                <el-table-column property="middle_num" label="中铺" width="200"></el-table-column>
-                <el-table-column property="lower_num" label="下铺" width="200"></el-table-column>
+                <el-table-column property="upper_num" label="上铺" width="130"></el-table-column>
+                <el-table-column property="middle_num" label="中铺" width="130"></el-table-column>
+                <el-table-column property="lower_num" label="下铺" width="130"></el-table-column>
+                <el-table-column label="操作" width="300">
+                <template slot-scope="scope">
+                    <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'上铺')">上铺</el-button>
+                    <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'中铺')">中铺</el-button>
+                    <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'下铺')">下铺</el-button>
+                </template>
+                </el-table-column>
             </el-table>
             <el-table :data="low_seat">
 
-                <el-table-column property="carriage_number" label="车厢号" width="100"></el-table-column>
-                <el-table-column property="seat_type" label="座位类型" width="100"></el-table-column>
-                <el-table-column property="A_num" label="A座" width="100"></el-table-column>
-                <el-table-column property="B_num" label="B座" width="100"></el-table-column>
-                <el-table-column property="C_num" label="C座" width="100"></el-table-column>
-                <el-table-column property="D_num" label="D座" width="100"></el-table-column>
-                <el-table-column property="E_num" label="E座" width="100"></el-table-column>
-                <el-table-column property="F_num" label="F座" width="100"></el-table-column>
+                <el-table-column property="carriage_number" label="车厢号" width="70"></el-table-column>
+                <el-table-column property="seat_type" label="座位类型" width="70"></el-table-column>
+                <el-table-column property="A_num" label="A座" width="55"></el-table-column>
+                <el-table-column property="B_num" label="B座" width="55"></el-table-column>
+                <el-table-column property="C_num" label="C座" width="55"></el-table-column>
+                <el-table-column property="D_num" label="D座" width="55"></el-table-column>
+                <el-table-column property="E_num" label="E座" width="55"></el-table-column>
+                <el-table-column property="F_num" label="F座" width="55"></el-table-column>
+                <el-table-column label="操作" width="500">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'A')">A</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'B')">B</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'C')">C</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'D')">D</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'E')">E</el-button>
+                        <el-button size="mini" type="primary" @click="handleAdd(scope.row.carriage_number,scope.row.seat_type,'F')">F</el-button>
+                    </template>
+                </el-table-column>
             </el-table>
 
         </div>
@@ -139,24 +172,52 @@
             </div>
         </el-row>
         <el-row  v-show="active === 2" >
-            <div >
-                {{start_no}}
-            </div>
+            <el-table :data="passenger_data" v-show="show_order_list" style="width: 1000px;margin-left: 80px;margin-top: 20px">
+                <el-table-column property="order_id" label="订单号" ></el-table-column>
+                <el-table-column property="passenger_real_name" label="乘客姓名" ></el-table-column>
+                <el-table-column property="passenger_phone_number" label="乘客电话号码" ></el-table-column>
+                <el-table-column property="passenger_id_number" label="身份证号"></el-table-column>
+                <el-table-column property="carriage_no" label="车厢号"></el-table-column>
+                <el-table-column property="seat_type" label="座位类型"></el-table-column>
+                <el-table-column property="seat_no" label="座位号"></el-table-column>
+            </el-table>
+            <el-row style="margin-top: 20px">
+
+                    <el-button type="primary" @click="dialogFormVisible_wx = true" style="margin-left: 300px">微信支付</el-button>
+
+
+                    <el-button type="primary" @click="dialogFormVisible_zfb = true" style="margin-left: 300px">支付宝支付</el-button>
+
+            </el-row>
+            <el-button type="primary" @click="pay_success()"  style="margin-left: 500px">支付成功</el-button>
+
+            <el-dialog title="微信支付" :visible.sync="dialogFormVisible_wx">
+                <el-image
+                    style="width: 300px; height: 500px ;"
+                    :src="url1"
+                    :fit="fit"></el-image>
+            </el-dialog>
+            <el-dialog title="支付宝支付" :visible.sync="dialogFormVisible_zfb">
+                <el-image
+                    style="width: 300px; height: 500px"
+                    :src="url2"
+                    :fit="fit"></el-image>
+            </el-dialog>
+
         </el-row>
         <el-row   v-show="active === 3" >
             <div >
-                {{end_no}}
             </div>
         </el-row>
 
-        <el-button type="primary" round @click="next" style="margin-left: 400px;margin-top: 20px">下一步</el-button>
+        <el-button type="primary" round @click="next" style="margin-left: 500px;margin-top: 30px">下一步</el-button>
     </div>
 </template>
 
 
 <script>
     import headTop from '../components/headTop'
-    import {queryTrainTicketNum,getPassengerInfo,orderTrainTicket} from '@/api/getData';
+    import {queryTrainTicketNum,getPassengerInfo,orderTrainTicket,getOrderList} from '@/api/getData';
     import {setCookie,getCookie} from "../config/store_cookie";
     export default {
         name: "TicketOrder",
@@ -166,40 +227,31 @@
                 train_no:"",
                 start_no:"",
                 end_no:"",
-                train_number:""
-                ,active:0,
+                train_number:"",
+                high_seat_price:"",
+                medium_seat_price:"",
+                low_seat_price:"",
+                url2:"https://39.105.44.114/zfb.JPG",
+                url1:"https://39.105.44.114/wx.JPG",
+                active:0,
                 dialogTableVisible: false,
                 dialogTableVisible_GD: false,
                 show_passenger:false,
+                show_passenger_ticket:false,
+                show_order_list:false,
                 passenger_count:0,
-                high_seat:[
-
-                ],
-                medium_seat:[
-
-                ],
-                low_seat:[
-                ],
-                high_seat_GD:[
-
-                ],
-                medium_seat_GD:[
-
-                ],
-                low_seat_GD:[
-
-                ],
-                tableDatas:[
-
-                ],
+                high_seat:[],
+                medium_seat:[],
+                low_seat:[],
+                high_seat_GD:[],
+                medium_seat_GD:[],
+                low_seat_GD:[],
+                tableDatas:[],
                 passenger_data:
-                [
-
-                ],
-                ticket_data:
-                [
-
-                ],
+                [],
+                ticket_data: [],
+                dialogFormVisible_wx:false,
+                dialogFormVisible_zfb:false
             };
         },
 
@@ -209,6 +261,10 @@
                 if(this.active == 1)
                 {
                     this.getTicketCount();
+                }
+                if(this.active == 2)
+                {
+                    this.getOrderList();
                 }
             },
             async getTicketCount(){
@@ -348,15 +404,43 @@
                 passenger_d.passenger_id_number = passenger_id_number;
                 this.passenger_data.push(passenger_d);
                 this.passenger_count ++;
+                this.$message({
+                    message: '当前添加了'+this.passenger_count+"位乘客",
+                    type: 'success'
+                });
                 this.show_passenger = true;
             },
-            handleAdd(carriage_no,seat_type,seat_number)
+           async handleAdd(carriage_no,seat_type,seat_number)
             {
                 if(this.passenger_count >0)
                 {
-                    let temp_datas;
-                    temp_datas.carriage_no = carriage_no;
-                    temp_datas.seat_type = seat_type;
+
+                    let passenger_phone_number = this.passenger_data[this.passenger_count-1].passenger_phone_number;
+                    let passenger_id_number =  this.passenger_data[this.passenger_count-1].passenger_id_number;
+                    console.log(this.datetime+this.train_no+this.start_no+this.end_no+this.train_number+carriage_no+seat_type+seat_number+passenger_phone_number+passenger_id_number);
+                    const res = await orderTrainTicket({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no,start_no:this.start_no,
+                        end_no:this.end_no,train_number:this.train_number,carriage_no:carriage_no,seat_type:seat_type,seat_number:seat_number,
+                        passenger_phone_number:passenger_phone_number,passenger_id_number:passenger_id_number, high_seat_price: this.high_seat_price,
+                        medium_seat_price:this.medium_seat_price,low_seat_price :this.low_seat_price});
+                        if(res.status ==1)
+                        {
+                           if(passenger_phone_number == res.passenger_phone_number)
+                           {
+                               this.passenger_data[this.passenger_count-1].carriage_no = res.carriage_no;
+                               this.passenger_data[this.passenger_count-1].seat_type = res.seat_type;
+                               this.passenger_data[this.passenger_count-1].seat_no = res.result_seat_no;
+                                     this.$message({
+                                   message: '乘客'+ this.passenger_data[this.passenger_count-1].passenger_real_name+'选座成功',
+                                   type: 'success'
+                               });
+                           }
+                        }
+                    this.passenger_count --;
+                        if( this.passenger_count  == 0)
+                        {
+                            this.show_passenger = false;
+                            this.show_passenger_ticket = true;
+                        }
 
                 }
                     console.log(this.datetime+this.train_no+this.start_no+this.end_no+this.train_number+carriage_no+seat_type+seat_number);
@@ -373,9 +457,46 @@
                 }
                 this.passenger_count --;
             },
-            async orderTicket(carriage_no,seat_type,seat_number)
+            async getOrderList()
             {
 
+                const res = await getOrderList({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no,start_no:this.start_no,
+                    end_no:this.end_no});
+                if(res.status == 1)
+                {
+                    for(let i = 0 ; i< res.getOrderListList.length ; i++)
+                    {
+                        for(let j = 0 ; j < this.passenger_data.length ; j++)
+                        {
+
+                            if(res.getOrderListList[i].passenger_phone_number == this.passenger_data[j].passenger_phone_number &&
+                                res.getOrderListList[i].passenger_id_number == this.passenger_data[j].passenger_id_number)
+                            {
+                                this.passenger_data[j].order_id =  res.getOrderListList[i].order_id;
+                            }
+                        }
+                    }
+                    this.show_passenger_ticket = false;
+                    this.show_order_list = true;
+                    this.$message({
+                        message: '请支付您的订单',
+                        type: 'success'
+                    });
+                }
+                else
+                {
+                    this.$message({
+                        message: '获取订单列表失败',
+                        type: 'danger'
+                    });
+                }
+
+
+
+            },
+            pay_success()
+            {
+                console.log("pay_success()")
             }
 
         },
@@ -393,11 +514,15 @@
             }
             else
             {
-                this.datetime = this.$route.query.datetime
-                this.train_no= this.$route.query.train_no
-                this.start_no= this.$route.query.start_no
-                this.end_no= this.$route.query.end_no
-                this.train_number = this.$route.query.train_number
+                this.datetime = this.$route.query.datetime;
+                this.train_no= this.$route.query.train_no;
+                this.start_no= this.$route.query.start_no;
+                this.end_no= this.$route.query.end_no;
+                this.train_number = this.$route.query.train_number;
+                this.high_seat_price= this.$route.query.high_seat_price;
+                this.medium_seat_price= this.$route.query.medium_seat_price;
+                this.low_seat_price= this.$route.query.low_seat_price;
+
             }
 
 

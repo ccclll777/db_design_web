@@ -73,7 +73,8 @@
                         <el-button
                             size="mini"
                             type="Success"
-                            @click="handleBuy(scope.$index,searchForm.datetime,scope.row.train_no,scope.row.start_no,scope.row.end_no,scope.row.train_number)">预定</el-button>
+                            @click="handleBuy(scope.$index,searchForm.datetime,scope.row.train_no,scope.row.start_no,scope.row.end_no,
+                            scope.row.train_number,scope.row.high_seat_price,scope.row.medium_seat_price,scope.row.low_seat_price)">预定</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -428,7 +429,7 @@
 
                 return i
             },
-            handleBuy(index,datetime,train_no,start_no,end_no,train_number)
+            handleBuy(index,datetime,train_no,start_no,end_no,train_number,high_seat_price,medium_seat_price,low_seat_price)
             {
                 let date;
                 date= new Date(datetime);
@@ -443,8 +444,9 @@
                         start_no:start_no,
                         end_no:end_no,
                         train_number:train_number,
-
-
+                        high_seat_price:high_seat_price,
+                        medium_seat_price:medium_seat_price,
+                        low_seat_price:low_seat_price
                     }
                     /*query: {
                         key: 'key',
