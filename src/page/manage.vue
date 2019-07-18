@@ -9,6 +9,7 @@
 						<el-menu-item index="TrainInfoList">列车信息</el-menu-item>
                         <el-menu-item index="SearchTrainInfo">列车时刻表</el-menu-item>
 						<el-menu-item index="TrainSchedule">列车查询</el-menu-item>
+                        <el-menu-item index="TrainTransfer">接续换乘</el-menu-item>
 						<!--<el-menu-item index="foodList">食品列表</el-menu-item>-->
 						<!--<el-menu-item index="orderList">订单列表</el-menu-item>-->
 

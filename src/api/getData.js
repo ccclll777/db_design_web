@@ -33,6 +33,10 @@ export const searchTrainSchedule= data => fetch('/trainSchedule/searchTrainSched
 
 export const getTrainScheduleList= data => fetch('/trainSchedule/getTrainScheduleList', data);
 
+export const searchTransferSchedule= data => fetch('/trainSchedule/searchTransferSchedule', data);
+
+
+
 export const queryTrainTicket= data => fetch('/query/queryTrainTicket', data);
 
 export const queryTrainTicketNum= data => fetch('/query/queryTrainTicketNum', data);
@@ -41,7 +45,9 @@ export const orderTrainTicket= data => fetch('/order/orderTrainTicket', data,'PO
 
 export const getOrderList= data => fetch('/order/getOrderList', data);
 
-export const paySuccess= data => fetch('/order/paySuccess', data);
+export const paySuccess= data => fetch('/order/paySuccess', data,'POST');
+
+
 
 /**
  * 获取列车总信息

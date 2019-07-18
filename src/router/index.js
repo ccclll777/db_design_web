@@ -12,6 +12,8 @@ const addGoods = r => require.ensure([], () => r(require('@/page/addGoods')), 'a
 const TrainInfoList = r => require.ensure([], () => r(require('@/page/TrainInfoList')), 'TrainInfoList');
 const TrainParkingInfo = r => require.ensure([], () => r(require('@/page/TrainParkingInfo')), 'TrainParkingInfo');
 const TrainSchedule = r => require.ensure([], () => r(require('@/page/TrainSchedule')), 'TrainSchedule');
+const TrainTransfer = r => require.ensure([], () => r(require('@/page/TrainTransfer')), 'TrainTransfer');
+
 const ticketInquiry = r => require.ensure([], () => r(require('@/page/ticketInquiry')), 'ticketInquiry');
 const TicketOrder = r => require.ensure([], () => r(require('@/page/TicketOrder')), 'TicketOrder');
 
@@ -59,16 +61,20 @@ const routes = [
 		},{
 			path: '/TrainInfoList',
 			component: TrainInfoList,
-			meta: ['数据管理', '列车信息'],
+			meta: ['列车信息查询', '列车信息'],
 		},{
                 path: '/SearchTrainInfo',
                 component: TrainParkingInfo,
-                meta: ['数据管理', '列车时刻表'],
+                meta: ['列车信息查询', '列车时刻表'],
         },{
 			path: '/TrainSchedule',
 			component: TrainSchedule,
-			meta: ['数据管理', '列车查询'],
+			meta: ['列车信息查询', '列车查询'],
 		},{
+            path: '/TrainTransfer',
+            component: TrainTransfer,
+            meta: ['列车信息查询', '接续换乘'],
+        },{
 			path: '/ticketInquiry',
 			component: ticketInquiry,
 			meta: ['车票查询及购买', '余票查询'],

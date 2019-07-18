@@ -206,7 +206,12 @@
 
         </el-row>
         <el-row   v-show="active === 3" >
-            <div >
+            <div style="margin-top: 30px; margin-left: 50px;margin-right: 50px">
+                <el-alert
+                    title="恭喜您支付成功，请在未出行订单列表中查看"
+                    type="success"
+                    effect="dark">
+                </el-alert>
             </div>
         </el-row>
 
@@ -217,7 +222,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import {queryTrainTicketNum,getPassengerInfo,orderTrainTicket,getOrderList} from '@/api/getData';
+    import {queryTrainTicketNum,getPassengerInfo,orderTrainTicket,getOrderList,paySuccess} from '@/api/getData';
     import {setCookie,getCookie} from "../config/store_cookie";
     export default {
         name: "TicketOrder",
@@ -265,6 +270,10 @@
                 if(this.active == 2)
                 {
                     this.getOrderList();
+                }
+                if(this.active == 4)
+                {
+
                 }
             },
             async getTicketCount(){
@@ -494,9 +503,33 @@
 
 
             },
-            pay_success()
+          async  pay_success()
             {
-                console.log("pay_success()")
+                var order_id_list = "";
+                console.log(this.passenger_data.length);
+                for(let i = 0 ; i < this.passenger_data.length ; i++)
+                {
+                    order_id_list = order_id_list+this.passenger_data[i].order_id +",";
+                    console.log( order_id_list);
+                }
+
+                const res = await  paySuccess({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no,start_no:this.start_no,
+                end_no:this.end_no,order_list:order_id_list});
+                if(res.status == 1)
+                {
+                    this.$message({
+                        message: res.success,
+                        type: 'success'
+                    });
+                    this.next();
+                }
+                else
+                    {
+                        this.$message({
+                            message: "支付失败",
+                            type: 'danger'
+                        });
+                }
             }
 
         },
