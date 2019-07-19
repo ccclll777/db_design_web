@@ -15,10 +15,13 @@
 
 						<!--<el-menu-item index="adminList">管理员列表</el-menu-item>-->
 					</el-submenu>
+
 					<el-submenu index="3">
 						<template slot="title"><i class="el-icon-plus"></i>车票查询及购买</template>
                         <el-menu-item index="ticketInquiry">余票查询</el-menu-item>
                         <el-menu-item index="TicketOrder">车票购买</el-menu-item>
+                        <el-menu-item index="TrainTransferTicketQuery">接续换乘</el-menu-item>
+                        <el-menu-item index="TransferTicketOrder">接续换乘车票购买</el-menu-item>
                         <el-menu-item index="orderList">订单列表</el-menu-item>
                         <el-menu-item index="adminList">管理员列表</el-menu-item>
 						<el-menu-item index="addShop">添加商铺</el-menu-item>

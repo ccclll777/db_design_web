@@ -16,7 +16,8 @@ const TrainTransfer = r => require.ensure([], () => r(require('@/page/TrainTrans
 
 const ticketInquiry = r => require.ensure([], () => r(require('@/page/ticketInquiry')), 'ticketInquiry');
 const TicketOrder = r => require.ensure([], () => r(require('@/page/TicketOrder')), 'TicketOrder');
-
+const TransferTicketOrder = r => require.ensure([], () => r(require('@/page/TransferTicketOrder')), 'TransferTicketOrder');
+const TrainTransferTicketQuery = r => require.ensure([], () => r(require('@/page/TrainTransferTicketQuery')), 'TrainTransferTicketQuery');
 const orderList = r => require.ensure([], () => r(require('@/page/orderList')), 'orderList');
 const adminList = r => require.ensure([], () => r(require('@/page/adminList')), 'adminList');
 const visitor = r => require.ensure([], () => r(require('@/page/visitor')), 'visitor');
@@ -78,7 +79,18 @@ const routes = [
 			path: '/ticketInquiry',
 			component: ticketInquiry,
 			meta: ['车票查询及购买', '余票查询'],
-		},{
+		},
+            {
+                path: '/TrainTransferTicketQuery',
+                component: TrainTransferTicketQuery,
+                meta: ['车票查询及购买', '接续换乘'],
+            },
+
+            {
+                path: '/TransferTicketOrder',
+                component: TransferTicketOrder,
+                meta: ['车票查询及购买', '接续换乘'],
+            },{
             path: '/TicketOrder',
             component: TicketOrder,
             meta: ['车票查询及购买', '车票购买'],

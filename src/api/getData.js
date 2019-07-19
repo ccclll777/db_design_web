@@ -39,7 +39,12 @@ export const searchTransferSchedule= data => fetch('/trainSchedule/searchTransfe
 
 export const queryTrainTicket= data => fetch('/query/queryTrainTicket', data);
 
+
 export const queryTrainTicketNum= data => fetch('/query/queryTrainTicketNum', data);
+
+export const queryTransferTrainTicketNum= data => fetch('/query/queryTransferTrainTicketNum', data,'POST');
+
+export const queryTrainTransferTicket= data => fetch('/query/queryTrainTransferTicket', data);
 
 export const orderTrainTicket= data => fetch('/order/orderTrainTicket', data,'POST');
 

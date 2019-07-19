@@ -142,6 +142,14 @@
 
 
             </el-dialog>
+            <el-row style="margin-top: 30px;margin-left: 150px">
+                <el-col :span="24"><div class="grid-content bg-purple-dark" style="color: #1c8de0">如果查询结果中没有满足需求的车次，您还可以使用接续换乘 功能，查询途中换乘一次的部分列车余票情况</div></el-col>
+            </el-row>
+            <el-row style="margin-top: 30px;margin-left: 400px">
+                <el-col :span="24"><div class="grid-content bg-purple">
+                    <el-button type="primary"   @click="transfer()">接续换乘</el-button>
+                </div></el-col>
+            </el-row>
         </div>
     </div>
 </template>
@@ -453,6 +461,10 @@
                         msgKey: this.msg
                     }*/
                 })
+            },
+            transfer()
+            {
+                this.$router.push('/TrainTransferTicketQuery')
             }
 
         },

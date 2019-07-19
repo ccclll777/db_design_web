@@ -25,28 +25,33 @@
             <el-table-column type="expand">
                 <template slot-scope="props">
                     <el-table
-                        :data="dataList"
+                        :data="props.row.tableData_c"
                         align="center"
                         stripe>
+
                         <el-table-column
-                            align="center"
-                            prop="duty">
+                            label="车次"
+                            prop="train_number">
                         </el-table-column>
                         <el-table-column
-                            align="center"
-                            prop="guard">
+                            label="出发站"
+                            prop="start_station">
                         </el-table-column>
                         <el-table-column
-                            align="center"
-                            prop="accident">
+                            label="到达站"
+                            prop="end_station">
                         </el-table-column>
                         <el-table-column
-                            align="center"
-                            prop="base">
+                            label="出发时间"
+                            prop="start_time">
                         </el-table-column>
                         <el-table-column
-                            align="center"
-                            prop="import">
+                            label="到达时间"
+                            prop="arrive_time">
+                        </el-table-column>
+                        <el-table-column
+                            label="运行及停靠时间"
+                            prop="running_time">
                         </el-table-column>
                     </el-table>
                 </template>
@@ -110,7 +115,7 @@
 <script>
     import headTop from '../components/headTop'
     import {baseUrl, baseImgPath} from '@/config/env'
-    import {searchTransferSchedule} from '@/api/getData'
+    import {searchTransferSchedule,getTrainScheduleList} from '@/api/getData'
     export default {
         data(){
             return {
@@ -121,76 +126,8 @@
                 limit: 20,
                 count: 0,
                 tableData: [
-                    {
-                        start_station_name:"01",
-                        train_number_1:"02",
-                        start_time_1:"03",
-                        arrive_time_1:"04",
-                        transfer_station_name:"05",
-                        transfer_time:"06",
-                        train_number_2:"07",
-                        start_time_2:"08",
-                        arrive_time_2:"09",
-                        arrive_station_name:"10",
-                        sum_running_time:"11"
-                    },
-                    {
-                        start_station_name:"01",
-                        train_number_1:"02",
-                        start_time_1:"03",
-                        arrive_time_1:"04",
-                        transfer_station_name:"05",
-                        transfer_time:"06",
-                        train_number_2:"07",
-                        start_time_2:"08",
-                        arrive_time_2:"09",
-                        arrive_station_name:"10",
-                        sum_running_time:"11"
-                    },
-                    {
-                        start_station_name:"01",
-                        train_number_1:"02",
-                        start_time_1:"03",
-                        arrive_time_1:"04",
-                        transfer_station_name:"05",
-                        transfer_time:"06",
-                        train_number_2:"07",
-                        start_time_2:"08",
-                        arrive_time_2:"09",
-                        arrive_station_name:"10",
-                        sum_running_time:"11"
-                    },
-                    {
-                        start_station_name:"01",
-                        train_number_1:"02",
-                        start_time_1:"03",
-                        arrive_time_1:"04",
-                        transfer_station_name:"05",
-                        transfer_time:"06",
-                        train_number_2:"07",
-                        start_time_2:"08",
-                        arrive_time_2:"09",
-                        arrive_station_name:"10",
-                        sum_running_time:"11"
-                    }
 
         ],
-                // dataList: [
-                //     {
-                //         duty: '责任',
-                //         guard: '预防',
-                //         accident: '意外',
-                //         base: '基础',
-                //         import: '重大'
-                //     },
-                //     {
-                //         duty: '金额',
-                //         guard: '3000',
-                //         accident: '1000',
-                //         base: '2000',
-                //         import: '4000'
-                //     }
-                // ] ,
                 selectTable: {},
                 dialogFormVisible: false,
                 categoryOptions: [],
@@ -204,7 +141,7 @@
                     },
                 currentRow: null,
                 offset: 0,
-                limit:10 ,
+                limit:5 ,
                 count: 0,
                 currentPage: 1
             }
@@ -242,7 +179,19 @@
 
                                 }
                                     this.getLists();
+                                this.$message({
+                                    type: 'success',
+                                    message: '查询成功'
 
+                                });
+                            }
+                            else
+                            {
+                                this.$message({
+                                    type: 'danger',
+                                    message: '搜索失败'
+
+                                });
                             }
                     }
 
@@ -272,13 +221,111 @@
                     temp.start_time_2 = res.trainTransferScheduleList[i].start_time_2;
                     temp.arrive_time_2 = res.trainTransferScheduleList[i].arrive_time_2;
                     temp.arrive_station_name = res.trainTransferScheduleList[i].end_station_name;
-
                     temp.transfer_time = this.getMin(res.trainTransferScheduleList[i].arrive_time_1 ,  res.trainTransferScheduleList[i].start_time_2)
                     temp.sum_running_time = this.getSumTime(temp.transfer_time,this.getMin(res.trainTransferScheduleList[i].start_running_time_1 ,  res.trainTransferScheduleList[i].end_running_time_1),
                         this.getMin(res.trainTransferScheduleList[i].start_running_time_2 ,  res.trainTransferScheduleList[i].end_running_time_2))
+                    var tableData_c = [];
+                    const TrainScheduleList  = await getTrainScheduleList({train_start_station_no:res.trainTransferScheduleList[i].start_station_no , train_end_station_no:res.trainTransferScheduleList[i].transfer_station_no_1 ,train_no :res.trainTransferScheduleList[i].train_no_1})
+                    if(TrainScheduleList.status == 1)
+                    {
+                        for(var j = 0 ; j < TrainScheduleList.trainScheduleInfoList.length ; j++ )
+                        {
+                            var tableData_temp = {}
+                            tableData_temp.train_number = TrainScheduleList.trainScheduleInfoList[j].train_number+"--"+j;
+                            tableData_temp.start_station =TrainScheduleList.trainScheduleInfoList[j].start_station;
+                            tableData_temp.end_station = TrainScheduleList.trainScheduleInfoList[j].end_station;
+                            tableData_temp.start_time = TrainScheduleList.trainScheduleInfoList[j].start_time;
+                            tableData_temp.arrive_time = TrainScheduleList.trainScheduleInfoList[j].arrive_time;
+                            let start_running_time = TrainScheduleList.trainScheduleInfoList[j].start_running_time;
+                            let end_running_time = TrainScheduleList.trainScheduleInfoList[j].end_running_time;
+                            let start_running_time2 = start_running_time.split(":");
+                            let end_running_time2 = end_running_time.split(":");
+                            let start_second =  parseInt(start_running_time2[0]) *60   + parseInt(start_running_time2[1]);
+                            let end_second =  parseInt(end_running_time2[0]) *60   + parseInt(end_running_time2[1]);
+                            let sub  = end_second -start_second;
+                            let h = Math.floor(sub/60);
+                            let min = sub%60;
+                            let h2   =   h.toString();
+                            let min2   =   min.toString();
+                            let min3 = "";
+                            let h3 = "";
+                            if(h2.length == 1)
+                            {
+                                h3 = "0" +h2;
+                            }
+                            else
+                            {
+                                h3 = h2;
+                            }
+                            if(min2.length == 1)
+                            {
+                                min3 = "0" +min2;
+                            }
+                            else
+                            {
+                                min3 = min2;
+                            }
 
+                            let result = h3+":"+min3;
+                            tableData_temp.running_time = result;
+                            tableData_c.push(tableData_temp);
+
+
+                        }
+
+                    }
+                    const TrainScheduleList_2  = await getTrainScheduleList({train_start_station_no:res.trainTransferScheduleList[i].transfer_station_no_2 , train_end_station_no:res.trainTransferScheduleList[i].end_station_no ,train_no :res.trainTransferScheduleList[i].train_no_2})
+                    if(TrainScheduleList_2.status == 1)
+                    {
+
+                        for(var j = 0 ; j < TrainScheduleList_2.trainScheduleInfoList.length ; j++ )
+                        {
+                            var tableData_temp = {}
+                            tableData_temp.train_number = TrainScheduleList_2.trainScheduleInfoList[j].train_number+"--"+j;
+                            tableData_temp.start_station =TrainScheduleList_2.trainScheduleInfoList[j].start_station;
+                            tableData_temp.end_station = TrainScheduleList_2.trainScheduleInfoList[j].end_station;
+                            tableData_temp.start_time = TrainScheduleList_2.trainScheduleInfoList[j].start_time;
+                            tableData_temp.arrive_time = TrainScheduleList_2.trainScheduleInfoList[j].arrive_time;
+                            let start_running_time = TrainScheduleList_2.trainScheduleInfoList[j].start_running_time;
+                            let end_running_time = TrainScheduleList_2.trainScheduleInfoList[j].end_running_time;
+                            let start_running_time2 = start_running_time.split(":");
+                            let end_running_time2 = end_running_time.split(":");
+                            let start_second =  parseInt(start_running_time2[0]) *60   + parseInt(start_running_time2[1]);
+                            let end_second =  parseInt(end_running_time2[0]) *60   + parseInt(end_running_time2[1]);
+                            let sub  = end_second -start_second;
+                            let h = Math.floor(sub/60);
+                            let min = sub%60;
+                            let h2   =   h.toString();
+                            let min2   =   min.toString();
+                            let min3 = "";
+                            let h3 = "";
+                            if(h2.length == 1)
+                            {
+                                h3 = "0" +h2;
+                            }
+                            else
+                            {
+                                h3 = h2;
+                            }
+                            if(min2.length == 1)
+                            {
+                                min3 = "0" +min2;
+                            }
+                            else
+                            {
+                                min3 = min2;
+                            }
+
+                            let result = h3+":"+min3;
+                            tableData_temp.running_time = result;
+                            tableData_c.push(tableData_temp);
+
+
+                        }
+
+                    }
+                    temp.tableData_c = tableData_c;
                     this.tableData.push(temp);
-
                 }
             }
         },
