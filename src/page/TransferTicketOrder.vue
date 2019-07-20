@@ -33,7 +33,17 @@
             <el-table-column property="seat_no" label="座位号"></el-table-column>
 
         </el-table>
+        <el-table :data="passenger_data_2" v-show="show_passenger_ticket_2" style="width: 1000px;margin-left: 80px;margin-top: 20px">
 
+            <el-table-column property="passenger_real_name" label="乘客姓名" ></el-table-column>
+            <el-table-column property="passenger_phone_number" label="乘客电话号码" ></el-table-column>
+            <el-table-column property="passenger_id_number" label="身份证号"></el-table-column>
+            <el-table-column property="train_number" label="车次"></el-table-column>
+            <el-table-column property="carriage_no" label="车厢号"></el-table-column>
+            <el-table-column property="seat_type" label="座位类型"></el-table-column>
+            <el-table-column property="seat_no" label="座位号"></el-table-column>
+
+        </el-table>
         <div v-show="active === 1 && dialogTableVisible_1" style="margin-top: 40px ;margin-left: 80px">
             <el-table :data="high_seat_1" >
                 <el-table-column property="train_number_1" label="车次" width="100"></el-table-column>
@@ -286,6 +296,17 @@
                 <el-table-column property="passenger_real_name" label="乘客姓名" ></el-table-column>
                 <el-table-column property="passenger_phone_number" label="乘客电话号码" ></el-table-column>
                 <el-table-column property="passenger_id_number" label="身份证号"></el-table-column>
+                <el-table-column property="train_number" label="车次"></el-table-column>
+                <el-table-column property="carriage_no" label="车厢号"></el-table-column>
+                <el-table-column property="seat_type" label="座位类型"></el-table-column>
+                <el-table-column property="seat_no" label="座位号"></el-table-column>
+            </el-table>
+            <el-table :data="passenger_data_2" v-show="show_order_list_2" style="width: 1000px;margin-left: 80px;margin-top: 20px">
+                <el-table-column property="order_id" label="订单号" ></el-table-column>
+                <el-table-column property="passenger_real_name" label="乘客姓名" ></el-table-column>
+                <el-table-column property="passenger_phone_number" label="乘客电话号码" ></el-table-column>
+                <el-table-column property="passenger_id_number" label="身份证号"></el-table-column>
+                <el-table-column property="train_number" label="车次"></el-table-column>
                 <el-table-column property="carriage_no" label="车厢号"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型"></el-table-column>
                 <el-table-column property="seat_no" label="座位号"></el-table-column>
@@ -385,6 +406,8 @@
                 high_seat_price_2:"",
                 medium_seat_price_2:"",
                 low_seat_price_2:"",
+                show_passenger_ticket_2:"",
+                show_order_list_2:false,
             };
         },
 
@@ -629,8 +652,12 @@
                 passenger_d.passenger_real_name = passenger_real_name;
                 passenger_d.passenger_phone_number = passenger_phone_number;
                 passenger_d.passenger_id_number = passenger_id_number;
+                let passenger_d_2 = {}
+                passenger_d_2.passenger_real_name = passenger_real_name;
+                passenger_d_2.passenger_phone_number = passenger_phone_number;
+                passenger_d_2.passenger_id_number = passenger_id_number;
                 this.passenger_data.push(passenger_d);
-                this.passenger_data_2.push(passenger_d)
+                this.passenger_data_2.push(passenger_d_2)
                 this.passenger_count ++;
                 this.passenger_count_2 ++;
                 this.$message({
@@ -644,9 +671,10 @@
                 if(this.passenger_count >0)
                 {
 
+                    console.log(this.train_no_2+"    "+this.train_no_1);
                     let passenger_phone_number = this.passenger_data[this.passenger_count-1].passenger_phone_number;
                     let passenger_id_number =  this.passenger_data[this.passenger_count-1].passenger_id_number;
-                    const res = await orderTrainTicket({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no,start_no:this.start_station_no,
+                    const res = await orderTrainTicket({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no_1,start_no:this.start_station_no,
                         end_no:this.transfer_station_no_1,train_number:this.train_number_1,carriage_no:carriage_no,seat_type:seat_type,seat_number:seat_number,
                         passenger_phone_number:passenger_phone_number,passenger_id_number:passenger_id_number, high_seat_price: this.high_seat_price_1,
                         medium_seat_price:this.medium_seat_price_1,low_seat_price :this.low_seat_price_1});
@@ -665,7 +693,7 @@
                         }
                     }
                     this.passenger_count --;
-                    if( this.passenger_count  == 0)
+                    if( this.passenger_count  == 0 )
                     {
                         this.show_passenger = false;
                         this.show_passenger_ticket = true;
@@ -676,34 +704,35 @@
             },
             async handleAdd_2(carriage_no,seat_type,seat_number)
             {
-                if(this.passenger_count >0)
+                if(this.passenger_count_2 >0)
                 {
 
-                    let passenger_phone_number = this.passenger_data[this.passenger_count-1].passenger_phone_number;
-                    let passenger_id_number =  this.passenger_data[this.passenger_count-1].passenger_id_number;
-                    const res = await orderTrainTicket({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no_2,start_no:this.transfer_station_no_2,
+                    console.log(this.train_no_2+"    "+this.train_no_1);
+                    let passenger_phone_number = this.passenger_data_2[this.passenger_count_2-1].passenger_phone_number;
+                    let passenger_id_number =  this.passenger_data_2[this.passenger_count_2-1].passenger_id_number;
+                    const res2 = await orderTrainTicket({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no_2,start_no:this.transfer_station_no_2,
                     end_no:this.end_station_no,train_number:this.train_number_2,carriage_no:carriage_no,seat_type:seat_type,seat_number:seat_number,
                     passenger_phone_number:passenger_phone_number,passenger_id_number:passenger_id_number, high_seat_price: this.high_seat_price_2,
                     medium_seat_price:this.medium_seat_price_2,low_seat_price :this.low_seat_price_2});
-                    if(res.status ==1)
+                    if(res2.status ==1)
                     {
-                        if(passenger_phone_number == res.passenger_phone_number)
+                        if(passenger_phone_number == res2.passenger_phone_number)
                         {
-                            this.passenger_data[this.passenger_count-1].carriage_no = res.carriage_no;
-                            this.passenger_data[this.passenger_count-1].seat_type = res.seat_type;
-                            this.passenger_data[this.passenger_count-1].seat_no = res.result_seat_no;
-                            this.passenger_data[this.passenger_count-1].train_number = this.train_number_2;
+                            this.passenger_data_2[this.passenger_count_2-1].carriage_no = res2.carriage_no;
+                            this.passenger_data_2[this.passenger_count_2-1].seat_type = res2.seat_type;
+                            this.passenger_data_2[this.passenger_count_2-1].seat_no = res2.result_seat_no;
+                            this.passenger_data_2[this.passenger_count_2-1].train_number = this.train_number_2;
                             this.$message({
-                                message: '乘客'+ this.passenger_data[this.passenger_count-1].passenger_real_name+'选座成功',
+                                message: '乘客'+ this.passenger_data_2[this.passenger_count_2-1].passenger_real_name+'选座成功',
                                 type: 'success'
                             });
                         }
                     }
-                    this.passenger_count --;
-                    if( this.passenger_count  == 0)
+                    this.passenger_count_2 --;
+                    if( this.passenger_count_2  == 0 )
                     {
                         this.show_passenger = false;
-                        this.show_passenger_ticket = true;
+                        this.show_passenger_ticket_2 = true;
                     }
 
                 }
@@ -724,8 +753,8 @@
             async getOrderList()
             {
 
-                const res = await getOrderList({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no,start_no:this.start_no,
-                    end_no:this.end_no});
+                const res = await getOrderList({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no_1,start_no:this.start_station_no,
+                    end_no:this.transfer_station_no_1});
                 if(res.status == 1)
                 {
                     for(let i = 0 ; i< res.getOrderListList.length ; i++)
@@ -754,23 +783,60 @@
                         type: 'danger'
                     });
                 }
+                console.log(this.passenger_data)
+                const res2 = await getOrderList({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no_2,start_no:this.transfer_station_no_2,
+                    end_no:this.end_station_no});
+                if(res2.status == 1)
+                {
+                    for(let i = 0 ; i< res2.getOrderListList.length ; i++)
+                    {
+                        for(let j = 0 ; j < this.passenger_data_2.length ; j++)
+                        {
 
-
-
+                            if(res2.getOrderListList[i].passenger_phone_number == this.passenger_data_2[j].passenger_phone_number &&
+                                res2.getOrderListList[i].passenger_id_number == this.passenger_data_2[j].passenger_id_number)
+                            {
+                                this.passenger_data_2[j].order_id =  res2.getOrderListList[i].order_id;
+                            }
+                        }
+                    }
+                    this.show_passenger_ticket_2 = false;
+                    this.show_order_list_2 = true;
+                    this.$message({
+                        message: '请支付您的订单',
+                        type: 'success'
+                    });
+                }
+                else
+                {
+                    this.$message({
+                        message: '获取订单列表失败',
+                        type: 'danger'
+                    });
+                }
+                console.log(this.passenger_data_2)
             },
             async  pay_success()
             {
                 var order_id_list = "";
-                console.log(this.passenger_data.length);
                 for(let i = 0 ; i < this.passenger_data.length ; i++)
                 {
                     order_id_list = order_id_list+this.passenger_data[i].order_id +",";
-                    console.log( order_id_list);
                 }
 
-                const res = await  paySuccess({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no,start_no:this.start_no,
-                    end_no:this.end_no,order_list:order_id_list});
-                if(res.status == 1)
+
+                const res = await  paySuccess({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no_1,start_no:this.start_station_no,
+                    end_no:this.transfer_station_no_1,order_list:order_id_list});
+                let order_id_list_2 = ""
+                for(let i = 0 ; i < this.passenger_data_2.length ; i++)
+                {
+                    order_id_list_2 = order_id_list_2+this.passenger_data_2[i].order_id +",";
+                }
+
+
+                const res2 = await  paySuccess({token:getCookie("token"),datetime:this.datetime,train_no:this.train_no_2,start_no:this.transfer_station_no_2,
+                    end_no:this.end_station_no,order_list:order_id_list_2});
+                if(res.status == 1 && res2.status == 1)
                 {
                     this.$message({
                         message: res.success,
@@ -817,7 +883,7 @@
                 this.high_seat_price_2 =this.$route.query.high_seat_price_2;
                 this.medium_seat_price_2 =this.$route.query.medium_seat_price_2;
                 this.low_seat_price_2 =this.$route.query.low_seat_price_2;
-                console.log(this.datetime+this.train_no_1);
+                console.log(this.train_no_2+"    "+this.train_no_1);
             }
 
 

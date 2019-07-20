@@ -59,7 +59,6 @@
             }
         },
         created(){
-            console.log(getCookie("token"))
                     this.initData();
         },
     	components: {

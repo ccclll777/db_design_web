@@ -556,24 +556,6 @@
                 this.low_seat_price= this.$route.query.low_seat_price;
 
             }
-           // if(this.$route.query.train_no_1 != null)
-           // {
-           //     this.datetime = this.$route.query.datetime;
-           //     this.train_no_1= this.$route.query.train_no_1;
-           //     this.train_number_1 = this.$route.query.train_number_1;
-           //     this.high_seat_price_1= this.$route.query.high_seat_price_1;
-           //     this.medium_seat_price_1= this.$route.query.medium_seat_price_1;
-           //     this.low_seat_price_1= this.$route.query.low_seat_price_1;
-           //     this.start_station_no = this.$route.query.start_station_no;
-           //     this.transfer_station_no_1=this.$route.query.transfer_station_no_1;
-           //     this. transfer_station_no_2 =this.$route.query.transfer_station_no_2;
-           //     this. end_station_no =this.$route.query.end_station_no;
-           //     this.train_no_2 =this.$route.query.train_no_2;
-           //     this.train_number_2 =this.$route.query.train_number_2;
-           //     this.high_seat_price_2 =this.$route.query.high_seat_price_2;
-           //     this.medium_seat_price_2 =this.$route.query.medium_seat_price_2;
-           //     this.low_seat_price_2 =this.$route.query.low_seat_price_2;
-           // }
 
 
 

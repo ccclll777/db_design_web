@@ -68,4 +68,8 @@ export const SearchTrainInfoData = data => fetch('/train/searchtraininfo', data)
 export const SearchTrainParkingInfo = data => fetch('/train/searchtrainparkingInfo', data);
 
 
+export const getAllOrderList = data => fetch('/order/getAllOrderList', data);
 
+export const getNotripOrderList = data => fetch('/order/getNotripOrderList', data);
+
+export const getNoPayOrderList = data => fetch('/order/getNoPayOrderList', data);

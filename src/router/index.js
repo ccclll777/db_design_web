@@ -7,8 +7,6 @@ const login = r => require.ensure([], () => r(require('@/page/login')), 'login')
 const register = r => require.ensure([], () => r(require('@/page/register')), 'register');
 const manage = r => require.ensure([], () => r(require('@/page/manage')), 'manage');
 const home = r => require.ensure([], () => r(require('@/page/home')), 'home');
-const addShop = r => require.ensure([], () => r(require('@/page/addShop')), 'addShop');
-const addGoods = r => require.ensure([], () => r(require('@/page/addGoods')), 'addGoods');
 const TrainInfoList = r => require.ensure([], () => r(require('@/page/TrainInfoList')), 'TrainInfoList');
 const TrainParkingInfo = r => require.ensure([], () => r(require('@/page/TrainParkingInfo')), 'TrainParkingInfo');
 const TrainSchedule = r => require.ensure([], () => r(require('@/page/TrainSchedule')), 'TrainSchedule');
@@ -18,12 +16,7 @@ const ticketInquiry = r => require.ensure([], () => r(require('@/page/ticketInqu
 const TicketOrder = r => require.ensure([], () => r(require('@/page/TicketOrder')), 'TicketOrder');
 const TransferTicketOrder = r => require.ensure([], () => r(require('@/page/TransferTicketOrder')), 'TransferTicketOrder');
 const TrainTransferTicketQuery = r => require.ensure([], () => r(require('@/page/TrainTransferTicketQuery')), 'TrainTransferTicketQuery');
-const orderList = r => require.ensure([], () => r(require('@/page/orderList')), 'orderList');
-const adminList = r => require.ensure([], () => r(require('@/page/adminList')), 'adminList');
-const visitor = r => require.ensure([], () => r(require('@/page/visitor')), 'visitor');
-const newMember = r => require.ensure([], () => r(require('@/page/newMember')), 'newMember');
-const uploadImg = r => require.ensure([], () => r(require('@/page/uploadImg')), 'uploadImg');
-const vueEdit = r => require.ensure([], () => r(require('@/page/vueEdit')), 'vueEdit');
+
 const UserInfo = r => require.ensure([], () => r(require('@/page/UserInfo')), 'UserInfo');
 const ChangeUserInfo = r => require.ensure([], () => r(require('@/page/ChangeUserInfo')), 'ChangeUserInfo');
 
@@ -32,8 +25,11 @@ const ChangePassword = r => require.ensure([], () => r(require('@/page/ChangePas
 const PassengerInfo = r => require.ensure([], () => r(require('@/page/PassengerInfo')), 'PassengerInfo');
 
 const AddPassenger = r => require.ensure([], () => r(require('@/page/AddPassenger')), 'AddPassenger');
-const sendMessage = r => require.ensure([], () => r(require('@/page/sendMessage')), 'sendMessage');
-const explain = r => require.ensure([], () => r(require('@/page/explain')), 'explain');
+
+const AllOrderList = r => require.ensure([], () => r(require('@/page/AllOrderList')), 'AllOrderList');
+const NoTripOrderList = r => require.ensure([], () => r(require('@/page/NoTripOrderList')), 'NoTripOrderList');
+
+const NoPayOrderList = r => require.ensure([], () => r(require('@/page/NoPayOrderList')), 'NoPayOrderList');
 const routes = [
 	{
 		path: '/',
@@ -51,14 +47,6 @@ const routes = [
 			path: '',
 			component: home,
 			meta: [],
-		},{
-			path: '/addShop',
-			component: addShop,
-			meta: ['添加数据', '添加商铺'],
-		},{
-			path: '/addGoods',
-			component: addGoods,
-			meta: ['添加数据', '添加商品'],
 		},{
 			path: '/TrainInfoList',
 			component: TrainInfoList,
@@ -94,32 +82,23 @@ const routes = [
             path: '/TicketOrder',
             component: TicketOrder,
             meta: ['车票查询及购买', '车票购买'],
-        }
+        },
+            {
+                path: '/AllOrderList',
+                component: AllOrderList,
+                meta: ['订单列表', '全部订单'],
+            },
+            {
+                path: '/NoTripOrderList',
+                component: NoTripOrderList,
+                meta: ['订单列表', '未出行订单'],
+            },
+            {
+                path: '/NoPayOrderList',
+                component: NoPayOrderList,
+                meta: ['订单列表', '未支付订单'],
+            }
 		,{
-			path: '/orderList',
-			component: orderList,
-			meta: ['数据管理', '订单列表'],
-		},{
-			path: '/adminList',
-			component: adminList,
-			meta: ['数据管理', '管理员列表'],
-		},{
-			path: '/visitor',
-			component: visitor,
-			meta: ['图表', '用户分布'],
-		},{
-			path: '/newMember',
-			component: newMember,
-			meta: ['图表', '用户数据'],
-		},{
-			path: '/uploadImg',
-			component: uploadImg,
-			meta: ['文本编辑', 'MarkDown'],
-		},{
-			path: '/vueEdit',
-			component: vueEdit,
-			meta: ['编辑', '文本编辑'],
-		},{
 			path: '/UserInfo',
 			component: UserInfo,
 			meta: ['个人信息', '个人信息'],
@@ -139,15 +118,7 @@ const routes = [
                 path: '/AddPassenger',
                 component: AddPassenger,
                 meta: ['个人信息', '添加乘客信息'],
-        },{
-			path: '/sendMessage',
-			component: sendMessage,
-			meta: ['设置', '发送通知'],
-		},{
-			path: '/explain',
-			component: explain,
-			meta: ['说明', '说明'],
-		}]
+        }]
 	}
 ]
 
