@@ -83,9 +83,13 @@
                     <template slot-scope="scope">
                         <el-button
                             size="mini"
-                            type="Success"
-                            @click="handleTicketchanges()">改签</el-button>
-
+                            type="success"
+                            @click="handleTicketchanges(scope.row.order_id,scope.row.start_date,scope.row.start_station_name,
+                            scope.row.end_station_name,scope.row.passenger_phone_number)">改签</el-button>
+                        <el-button
+                            size="mini"
+                            type="success"
+                            @click="handleRefundTicket(scope.row.order_id)">退票</el-button>
                     </template>
                 </el-table-column>
             </el-table>
@@ -106,7 +110,7 @@
 
 <script>
     import headTop from '../components/headTop';
-    import {getNotripOrderList} from '@/api/getData';
+    import {getNotripOrderList,refundTicket} from '@/api/getData';
     import {setCookie,getCookie} from "../config/store_cookie";
     export default {
         data(){
@@ -195,9 +199,37 @@
                     console.log('获取数据失败', err);
                 }
             },
-            handleTicketchanges()
+            handleTicketchanges(order_id,datetime,start_station_name,
+        end_station_name,passenger_phone_number)
             {
+                console.log(order_id+datetime+start_station_name+end_station_name+passenger_phone_number)
+                this.$router.push({
+                    path: '/TicketChange',
+                    query: {
+                        order_id:order_id,
+                        datetime: datetime,
+                        start_station_name:start_station_name,
+                        end_station_name:end_station_name,
+                        passenger_phone_number:passenger_phone_number
 
+                    }
+                    /*query: {
+                        key: 'key',
+                        msgKey: this.msg
+                    }*/
+                })
+            },
+
+            async handleRefundTicket(order_id)
+            {
+                const res = await refundTicket({token:getCookie("token"),order_id:order_id});
+                if(res.status == 1)
+                {
+                    this.$message({
+                        type: 'success',
+                        message: res.success,
+                    });
+                }
             }
 
         },

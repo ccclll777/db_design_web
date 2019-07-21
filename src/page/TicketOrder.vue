@@ -273,11 +273,10 @@
                 }
                 if(this.active == 4)
                 {
-
+                    this.$router.push('AllOrderList')
                 }
             },
             async getTicketCount(){
-                console.log(13141)
                 const res = await queryTrainTicketNum({datetime:this.datetime, train_no:this.train_no ,start_no :this.start_no,end_no:this.end_no,train_number:this.train_number})
                 if(res.status == 1)
                 {

@@ -90,18 +90,28 @@
                 </el-table-column>
             </el-table>
             <el-dialog title="支付" :visible.sync="dialogTableVisible" style="width: 1500px">
+                <el-row>
+                    <el-col :span="12"><div class="grid-content bg-purple">
+                        <div class="block">
 
-                <div class="block">
-                    <span class="demonstration">支付宝支付</span>
-                    <el-image :src="url2"></el-image>
-                </div>
-                <div class="block">
-                    <span class="demonstration">微信支付</span>
-                    <el-image :src="url1"></el-image>
-                </div>
+                            <el-image
+                                style="width: 300px; height: 500px"
+                                :src="url2"
+                                :fit="fit"></el-image>
+                        </div>
+                    </div></el-col>
+                    <el-col :span="12"><div class="grid-content bg-purple-light"> <div class="block">
+                        <el-image
+                            style="width: 300px; height: 500px"
+                            :src="url1"
+                            :fit="fit"></el-image>
+                    </div></div></el-col>
+                </el-row>
+
                 <el-button
                     size="mini"
-                    type="Success"
+                    type="success"
+                    style="margin-left: 300px"
                     @click="handlepaysuccess()">支付成功</el-button>
             </el-dialog>
             <div class="Pagination">
@@ -143,8 +153,6 @@
                         passenger_phone_number:"11",
                         passenger_id_number:"12",
                         order_money:"12",
-                        url2:"https://39.105.44.114/zfb.JPG",
-                        url1:"https://39.105.44.114/wx.JPG",
 
 
                     }
@@ -156,6 +164,9 @@
                 currentPage: 1,
                 dialogTableVisible:false,
                 order_list:"",
+                url2:"https://40964096.xyz/zhifubao.jpg",
+                url1:"https://40964096.xyz/weixin.jpg",
+
 
             }
         },

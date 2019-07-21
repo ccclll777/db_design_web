@@ -23,7 +23,7 @@
     export default {
     	data(){
     		return {
-                url:"https://39.105.44.114/123.jpeg"
+                url:"https://40964096.xyz/xiaojiejie.jpg"
     		}
     	},
     	created(){

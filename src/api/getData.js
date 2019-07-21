@@ -73,3 +73,11 @@ export const getAllOrderList = data => fetch('/order/getAllOrderList', data);
 export const getNotripOrderList = data => fetch('/order/getNotripOrderList', data);
 
 export const getNoPayOrderList = data => fetch('/order/getNoPayOrderList', data);
+
+export const refundTicket = data => fetch('/order/refundTicket', data);
+
+
+export const getPassengerInfoByNumber = data => fetch('/passenger/getPassengerInfoByNumber', data);
+
+
+export const ticketChange = data => fetch('/order/ticketChange', data,'POST');

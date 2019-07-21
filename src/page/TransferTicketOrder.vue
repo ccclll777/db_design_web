@@ -359,8 +359,8 @@
         data() {
             return {
 
-                url2:"https://39.105.44.114/zfb.JPG",
-                url1:"https://39.105.44.114/wx.JPG",
+                url2:"https://40964096.xyz/zhifubao.jpg",
+                url1:"https://40964096.xyz/weixin.jpg",
                 active:0,
                 dialogTableVisible_1: false,
                 dialogTableVisible_GD_1: false,
@@ -424,7 +424,7 @@
                 }
                 if(this.active == 4)
                 {
-
+                    this.$router.push('AllOrderList');
                 }
             },
             async getTicketCount() {

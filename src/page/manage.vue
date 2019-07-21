@@ -29,6 +29,7 @@
                         <el-menu-item index="AllOrderList">全部订单</el-menu-item>
                         <el-menu-item index="NoPayOrderList">未支付订单</el-menu-item>
                          <el-menu-item index="NoTripOrderList">未出行订单</el-menu-item>
+                        <el-menu-item index="TicketChange">订单改签</el-menu-item>
 
                     </el-submenu>
                     <el-submenu index="6">
