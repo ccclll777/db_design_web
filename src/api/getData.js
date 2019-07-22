@@ -81,3 +81,7 @@ export const getPassengerInfoByNumber = data => fetch('/passenger/getPassengerIn
 
 
 export const ticketChange = data => fetch('/order/ticketChange', data,'POST');
+export const getOrder = data => fetch('/order/getOrder', data,'POST');
+export const getOrderChangeResult = data => fetch('/order/getOrderChangeResult', data,);
+
+export const getOrderMoney = data => fetch('/order/getOrderMoney', data,);

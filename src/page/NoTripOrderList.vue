@@ -85,7 +85,7 @@
                             size="mini"
                             type="success"
                             @click="handleTicketchanges(scope.row.order_id,scope.row.start_date,scope.row.start_station_name,
-                            scope.row.end_station_name,scope.row.passenger_phone_number)">改签</el-button>
+                            scope.row.end_station_name,scope.row.passenger_phone_number,scope.row.train_number)">改签</el-button>
                         <el-button
                             size="mini"
                             type="success"
@@ -200,9 +200,8 @@
                 }
             },
             handleTicketchanges(order_id,datetime,start_station_name,
-        end_station_name,passenger_phone_number)
+        end_station_name,passenger_phone_number,train_number)
             {
-                console.log(order_id+datetime+start_station_name+end_station_name+passenger_phone_number)
                 this.$router.push({
                     path: '/TicketChange',
                     query: {
@@ -210,7 +209,8 @@
                         datetime: datetime,
                         start_station_name:start_station_name,
                         end_station_name:end_station_name,
-                        passenger_phone_number:passenger_phone_number
+                        passenger_phone_number:passenger_phone_number,
+                        train_number:train_number
 
                     }
                     /*query: {
