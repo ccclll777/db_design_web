@@ -300,6 +300,7 @@
                 <el-table-column property="carriage_no" label="车厢号"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型"></el-table-column>
                 <el-table-column property="seat_no" label="座位号"></el-table-column>
+                <el-table-column property="seat_price" label="订单金额"></el-table-column>
             </el-table>
             <el-table :data="passenger_data_2" v-show="show_order_list_2" style="width: 1000px;margin-left: 80px;margin-top: 20px">
                 <el-table-column property="order_id" label="订单号" ></el-table-column>
@@ -310,6 +311,7 @@
                 <el-table-column property="carriage_no" label="车厢号"></el-table-column>
                 <el-table-column property="seat_type" label="座位类型"></el-table-column>
                 <el-table-column property="seat_no" label="座位号"></el-table-column>
+                <el-table-column property="seat_price" label="订单金额"></el-table-column>
             </el-table>
             <el-row style="margin-top: 20px">
 
@@ -766,6 +768,70 @@
                                 res.getOrderListList[i].passenger_id_number == this.passenger_data[j].passenger_id_number)
                             {
                                 this.passenger_data[j].order_id =  res.getOrderListList[i].order_id;
+                                for(let k = 0 ; k < this.tableDatas.length ; k++)
+                                {
+                                    if(this.tableDatas[k].passenger_phone_number ==  this.passenger_data[j].passenger_phone_number)
+                                    {
+                                        if(this.tableDatas[k].passenger_type == 1)
+                                        {
+                                            if( this.passenger_data[j].seat_type == "二等座" )
+                                            {
+
+                                                this.passenger_data[j].seat_price = this.low_seat_price_1;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "一等座" )
+                                            {
+                                                this.passenger_data[j].seat_price = this.medium_seat_price_1;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "特等座" )
+                                            {
+                                                this.passenger_data[j].seat_price = this.high_seat_price_1;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "硬座" )
+                                            {
+                                                this.passenger_data[j].seat_price = this.low_seat_price_1;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "硬卧" )
+                                            {
+                                                this.passenger_data[j].seat_price = this.medium_seat_price_1;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "软卧" )
+                                            {
+                                                this.passenger_data[j].seat_price = this.high_seat_price_1;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if( this.passenger_data[j].seat_type == "二等座" )
+                                            {
+
+                                                this.passenger_data[j].seat_price =  parseInt(this.low_seat_price_1.substring(1,this.low_seat_price_1.length)) *0.75;
+                                                console.log(this.low_seat_price)
+                                            }
+                                            if( this.passenger_data[j].seat_type == "一等座" )
+                                            {
+                                                this.passenger_data[j].seat_price =  parseInt(this.medium_seat_price_1.substring(1,this.medium_seat_price_1.length)) *0.75;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "特等座" )
+                                            {
+                                                this.passenger_data[j].seat_price = parseInt(this.high_seat_price_1.substring(1,this.high_seat_price_1.length)) *0.75;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "硬座" )
+                                            {
+                                                this.passenger_data[j].seat_price = parseInt(this.low_seat_price_1.substring(1,this.low_seat_price_1.length)) *0.5;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "硬卧" )
+                                            {
+                                                this.passenger_data[j].seat_price = parseInt(this.medium_seat_price_1.substring(1,this.medium_seat_price_1.length)) *0.5;
+                                            }
+                                            if( this.passenger_data[j].seat_type == "软卧" )
+                                            {
+                                                this.passenger_data[j].seat_price = parseInt(this.high_seat_price_1.substring(1,this.high_seat_price_1.length))*0.5;
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }
@@ -797,6 +863,69 @@
                                 res2.getOrderListList[i].passenger_id_number == this.passenger_data_2[j].passenger_id_number)
                             {
                                 this.passenger_data_2[j].order_id =  res2.getOrderListList[i].order_id;
+                                for(let k = 0 ; k < this.tableDatas.length ; k++)
+                                {
+                                    if(this.tableDatas[k].passenger_phone_number ==  this.passenger_data_2[j].passenger_phone_number)
+                                    {
+                                        if(this.tableDatas[k].passenger_type == 1)
+                                        {
+                                            if( this.passenger_data_2[j].seat_type == "二等座" )
+                                            {
+
+                                                this.passenger_data_2[j].seat_price = this.low_seat_price_2;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "一等座" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = this.medium_seat_price_2;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "特等座" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = this.high_seat_price_2;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "硬座" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = this.low_seat_price_2;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "硬卧" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = this.medium_seat_price_2;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "软卧" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = this.high_seat_price_2;
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if( this.passenger_data_2[j].seat_type == "二等座" )
+                                            {
+
+                                                this.passenger_data_2[j].seat_price =  parseInt(this.low_seat_price_2.substring(1,this.low_seat_price_2.length)) *0.75;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "一等座" )
+                                            {
+                                                this.passenger_data_2[j].seat_price =  parseInt(this.medium_seat_price_2.substring(1,this.medium_seat_price_2.length)) *0.75;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "特等座" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = parseInt(this.high_seat_price_2.substring(1,this.high_seat_price_2.length)) *0.75;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "硬座" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = parseInt(this.low_seat_price_2.substring(1,this.low_seat_price_2.length)) *0.5;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "硬卧" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = parseInt(this.medium_seat_price_2.substring(1,this.medium_seat_price_2.length)) *0.5;
+                                            }
+                                            if( this.passenger_data_2[j].seat_type == "软卧" )
+                                            {
+                                                this.passenger_data_2[j].seat_price = parseInt(this.high_seat_price_2.substring(1,this.high_seat_price_2.length))*0.5;
+                                            }
+                                        }
+                                    }
+                                }
+
                             }
                         }
                     }

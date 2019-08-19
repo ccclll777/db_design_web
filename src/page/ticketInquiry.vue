@@ -25,6 +25,13 @@
                 <el-col :span="6"><div class="grid-content bg-purple">
                     <el-button type="primary" round  @click="submitForm('searchForm')">搜索</el-button>
                 </div></el-col>
+                <el-switch
+                    style="margin-top: 30px;margin-left: 20px"
+                    v-model="value1"
+                    @click.native="handelUpdate()"
+                    inactive-text="按开车时间排序"
+                    active-text="按运行时间排序">
+                </el-switch>
             </el-row>
         </el-form>
         <div class="table_container">
@@ -162,6 +169,7 @@
     export default {
         data(){
             return {
+                value1: false,
                 tableData: [
                 ],
                 selectTable: {},
@@ -287,6 +295,7 @@
                                     this.tableData.push(tableData);
                                 }
                                 console.log(this.tableData)
+                                this.TrainRank();
                             }
                             else if(res.status == 404)
                             {
@@ -465,7 +474,52 @@
             transfer()
             {
                 this.$router.push('/TrainTransferTicketQuery')
+            },
+            TrainRank()
+            {
+                if(this.value1 === false)
+                {
+                    for(let i = 0 ; i < this.tableData.length ; i++)
+                    {
+                        for(let j = 0 ; j <this.tableData.length - i -1 ; j++ )
+                        {
+                            if(this.transferTime(this.tableData[j].start_time) >this.transferTime(this.tableData[j+1].start_time))
+                            {
+                                let temp = this.tableData[j];
+                                this.tableData[j] = this.tableData[j+1];
+                                this.tableData[j+1] = temp;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for(let i = 0 ; i < this.tableData.length ; i++)
+                    {
+                        for(let j = 0 ; j <this.tableData.length - i -1 ; j++ )
+                        {
+                            if(this.transferTime(this.tableData[j].running_time) >this.transferTime(this.tableData[j+1].running_time))
+                            {
+                                let temp = this.tableData[j];
+                                this.tableData[j] = this.tableData[j+1];
+                                this.tableData[j+1] = temp;
+                            }
+                        }
+                    }
+                }
+            },
+            transferTime(time)
+            {
+                let time2 = time.split(":");
+                let second =  parseInt(time2[0]) *60   + parseInt(time2[1]);
+                return second;
+            },
+            handelUpdate()
+            {
+                this.TrainRank();
+
             }
+
 
         },
     }

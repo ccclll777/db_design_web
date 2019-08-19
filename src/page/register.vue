@@ -3,7 +3,7 @@
         <transition name="form-fade" mode="in-out">
             <section class="form_contianer" v-show="showLogin" style="background-color: #243654">
                 <div class="manage_tip">
-                    <p>12308注册</p>
+                    <p>注册界面</p>
                 </div>
 
                 <el-form :model="registerForm" :rules="rules" ref="registerForm" style="background-color: #243654">

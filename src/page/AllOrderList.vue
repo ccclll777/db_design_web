@@ -104,24 +104,6 @@
             return {
 
                 tableData: [
-                    {
-                        order_id:"01",
-                        passenger_real_name:"02",
-                        train_number:"03",
-                        start_station_name:"04",
-                        end_station_name:"05",
-                        carriage_no:"06",
-                        seat_type:"07",
-                        seat_no:"08",
-                        start_date:"08",
-                        start_time:"09",
-                        order_status:"10",
-                        passenger_phone_number:"11",
-                        passenger_id_number:"12",
-                        order_money:"12"
-
-
-                    }
                 ],
                 currentRow: null,
                 offset: 0,

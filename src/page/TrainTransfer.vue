@@ -16,6 +16,13 @@
                 <el-col :span="6"><div class="grid-content bg-purple">
                     <el-button type="primary" round  @click="submitForm('searchForm')">搜索</el-button>
                 </div></el-col>
+                <el-switch
+                    style="margin-top: 30px;margin-left: 20px"
+                    v-model="value1"
+                    @click.native="handelUpdate()"
+                    inactive-text="按开车时间排序"
+                    active-text="按运行时间排序">
+                </el-switch>
             </el-row>
         </el-form>
 
@@ -119,8 +126,7 @@
     export default {
         data(){
             return {
-                baseUrl,
-                baseImgPath,
+                value1:false,
                 city: {},
                 offset: 0,
                 limit: 20,
@@ -327,6 +333,16 @@
                     temp.tableData_c = tableData_c;
                     this.tableData.push(temp);
                 }
+                this.TrainRank();
+
+            }
+            else
+            {
+                this.$message({
+                    type: 'error',
+                    message: '搜索失败'
+
+                });
             }
         },
             getMin(time1,time2)
@@ -397,11 +413,58 @@
                 let result = h3+":"+min3;
                 return result
 
+            },
+            TrainRank()
+            {
+
+                console.log(11111)
+                if(this.value1 === false)
+                {
+                    for(let i = 0 ; i < this.tableData.length ; i++)
+                    {
+                        for(let j = 0 ; j <this.tableData.length - i -1 ; j++ )
+                        {
+                            if(this.transferTime(this.tableData[j].start_time_1) >this.transferTime(this.tableData[j+1].start_time_1))
+                            {
+                                let temp = this.tableData[j];
+                                this.tableData[j] = this.tableData[j+1];
+                                this.tableData[j+1] = temp;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    for(let i = 0 ; i < this.tableData.length ; i++)
+                    {
+                        for(let j = 0 ; j <this.tableData.length - i -1 ; j++ )
+                        {
+                            if(this.transferTime(this.tableData[j].sum_running_time) >this.transferTime(this.tableData[j+1].sum_running_time))
+                            {
+                                let temp = this.tableData[j];
+                                this.tableData[j] = this.tableData[j+1];
+                                this.tableData[j+1] = temp;
+                            }
+                        }
+                    }
+                }
+            },
+            transferTime(time)
+            {
+                let time2 = time.split(":");
+                let second =  parseInt(time2[0]) *60   + parseInt(time2[1]);
+                return second;
+            },
+            handelUpdate()
+            {
+                this.TrainRank();
             }
 
 
 
+
         },
+
     }
 </script>
 
