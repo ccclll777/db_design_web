@@ -444,6 +444,13 @@
                                });
                            }
                         }
+                        else if(res.status ==40008)
+                        {
+                            this.$message({
+                                message:"该乘客有冲突的行程，无法选座",
+                                type: 'danger'
+                            });
+                        }
                     this.passenger_count --;
                         if( this.passenger_count  == 0)
                         {

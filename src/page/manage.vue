@@ -43,19 +43,9 @@
 
                     </el-submenu>
 
-                    <!--<el-submenu index="5">-->
-                        <!--<template slot="title"><i class="el-icon-edit"></i>编辑</template>-->
-                        <!--&lt;!&ndash; <el-menu-item index="uploadImg">上传图片</el-menu-item> &ndash;&gt;-->
-                        <!--<el-menu-item index="vueEdit">文本编辑</el-menu-item>-->
-                    <!--</el-submenu>-->
-
-                    <!--<el-submenu index="7">-->
-                        <!--<template slot="title"><i class="el-icon-warning"></i>说明</template>-->
-                        <!--<el-menu-item index="explain">说明</el-menu-item>-->
-                    <!--</el-submenu>-->
 				</el-menu>
 			</el-col>
-			<el-col :span="20" style="height: 100%;overflow: auto;">
+			<el-col :span="20" style="height: 100%;overflow: hidden;erflow: auto;">
 				<keep-alive>
 				    <router-view></router-view>
 				</keep-alive>
@@ -66,6 +56,11 @@
 
 <script>
     export default {
+        data(){
+            return {
+
+            }
+        },
 		computed: {
 			defaultActive: function(){
 				return this.$route.path.replace('/', '');
