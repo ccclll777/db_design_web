@@ -5,10 +5,17 @@
             <el-form :model="searchForm"  ref="searchForm">
             <el-row :gutter="20" style="margin-top: 10px">
                 <el-col :span="12"><div class="grid-content bg-purple">
-                    <el-input v-model="searchForm.train_number" placeholder="请输入要搜索的列车号">
+                    <!--<el-input v-model="searchForm.train_number" placeholder="请输入要搜索的列车号">-->
 
-                    </el-input>
-
+                    <!--</el-input>-->
+                    <el-autocomplete
+                        class="inline-input"
+                        v-model="searchForm.train_number"
+                        :fetch-suggestions="querySearch"
+                        placeholder="请输入要搜索的列车号"
+                        :trigger-on-focus="true"
+                        @select="handleSelect"
+                    ></el-autocomplete>
                 </div>
                 </el-col>
                 <el-col :span="6"><div class="grid-content bg-purple">
@@ -90,7 +97,7 @@
 
 <script>
     import headTop from '../components/headTop'
-    import {getUserList, getTrainInfoData,SearchTrainInfoData} from '@/api/getData'
+    import {getUserList, getTrainInfoData,SearchTrainInfoData,getAllTrainNumber} from '@/api/getData'
     export default {
         data(){
             return {
@@ -104,7 +111,8 @@
                 offset: 0,
                 limit:20 ,
                 count: 0,
-                currentPage: 1
+                currentPage: 1,
+                trainData:['D1644','D1634']
 
             }
         },
@@ -118,6 +126,8 @@
             async initData(){
                 try{
 
+                    const res = await getAllTrainNumber()
+                   this.trainData = res.dataLists;
                     const TrainInfoData = await getTrainInfoData({offset: 0, limit: 2141});
                     if (TrainInfoData.status == 1) {
 
@@ -198,7 +208,24 @@
             {
                 this.initData();
 
-            }
+            },
+            async querySearch(queryString, cb) {
+                var houseNumberList = this.trainData;
+                let results = queryString ? houseNumberList.filter(this.createFilter(queryString)) : houseNumberList;
+
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    cb(results);
+                }, 1000 * Math.random());
+
+            },
+            createFilter(queryString) {
+                return (houseNumber) => {
+                    return (houseNumber.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+                };
+
+
+            },
         },
     }
 </script>

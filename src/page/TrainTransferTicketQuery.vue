@@ -4,14 +4,24 @@
         <el-form :model="searchForm"  ref="searchForm">
             <el-row :gutter="20" style="margin-left: 180px;margin-top: 10px;width: 1000px">
                 <el-col :span="6"><div class="grid-content bg-purple">
-                    <el-input v-model="searchForm.start_station" placeholder="请输入始发站">
-
-                    </el-input>
+                    <el-autocomplete
+                        class="inline-input"
+                        v-model="searchForm.start_station"
+                        :fetch-suggestions="querySearch"
+                        placeholder="请输入始发站"
+                        :trigger-on-focus="true"
+                        @select="handleSelect"
+                    ></el-autocomplete>
                 </div></el-col>
                 <el-col :span="6"><div class="grid-content bg-purple" style="margin-left: 20px">
-                    <el-input v-model="searchForm.end_station" placeholder="请输入终点站">
-
-                    </el-input>
+                    <el-autocomplete
+                        class="inline-input"
+                        v-model="searchForm.end_station"
+                        :fetch-suggestions="querySearch"
+                        placeholder="请输入终点站"
+                        :trigger-on-focus="true"
+                        @select="handleSelect"
+                    ></el-autocomplete>
                 </div></el-col>
                 <el-col :span="6"><div class="grid-content bg-purple" style="margin-left: 20px">
                     <div class="block">
@@ -164,7 +174,7 @@
 <script>
     import headTop from '../components/headTop'
     import {baseUrl, baseImgPath} from '@/config/env'
-    import {queryTrainTransferTicket,queryTransferTrainTicketNum} from '@/api/getData'
+    import {queryTrainTransferTicket,queryTransferTrainTicketNum,getAllStationName} from '@/api/getData'
     import {TickerOrder} from "../router/index"
     export default {
         data(){
@@ -199,10 +209,13 @@
                 offset: 0,
                 limit:5 ,
                 count: 0,
-                currentPage: 1
+                currentPage: 1,
+                stationData:[],
             }
         },
-        created(){
+        async created(){
+            const res = await getAllStationName()
+            this.stationData = res.dataLists;
         },
         components: {
             headTop,
@@ -483,7 +496,24 @@
             handelUpdate()
             {
                 this.TrainRank();
-            }
+            },
+            async querySearch(queryString, cb) {
+                var houseNumberList = this.stationData;
+                let results = queryString ? houseNumberList.filter(this.createFilter(queryString)) : houseNumberList;
+
+                clearTimeout(this.timeout);
+                this.timeout = setTimeout(() => {
+                    cb(results);
+                }, 1000 * Math.random());
+
+            },
+            createFilter(queryString) {
+                return (houseNumber) => {
+                    return (houseNumber.value.toLowerCase().indexOf(queryString.toLowerCase()) !== -1);
+                };
+
+
+            },
 
 
 

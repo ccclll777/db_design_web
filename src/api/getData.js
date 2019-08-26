@@ -184,3 +184,14 @@ export const getOrderChangeResult = data => fetch('/order/getOrderChangeResult',
  * @param data
  */
 export const getOrderMoney = data => fetch('/order/getOrderMoney', data,);
+
+
+/**
+ * 和获取所有车次
+ * @param data
+ */
+export const getAllTrainNumber = data => fetch('/train/getAllTrainNumber', data,);
+
+
+
+export const getAllStationName = data => fetch('/train/getAllStationName', data,);
