@@ -1,5 +1,9 @@
 <template>
     <div class="fillcontain">
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <head-top></head-top>
         <div class="table_container">
             <el-table
@@ -188,8 +192,11 @@
                         console.log("getLists")
                         this.tableData = [];
                         for (let i = this.offset; i < this.offset + this.limit; i++) {
-                            this.tableData.push(res2.getAllOrderListList[i]);
-                            console.log(res2.getAllOrderListList[i]);
+                            if(i< this.offset + res2.getAllOrderListList.length){
+                                this.tableData.push(res2.getAllOrderListList[i]);
+                                console.log(res2.getAllOrderListList[i]);
+                            }
+
                         }
 
                     } else {

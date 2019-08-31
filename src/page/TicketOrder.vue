@@ -1,6 +1,10 @@
 <template>
 
     <div>
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <head-top></head-top>
         <el-steps :active="active" align-center style="margin-top: 10px">
             <el-step title="添加乘客" ></el-step>
@@ -448,7 +452,14 @@
                         {
                             this.$message({
                                 message:"该乘客有冲突的行程，无法选座",
-                                type: 'danger'
+                                type: 'warning'
+                            });
+                        }
+                        else if(res.status == 40009)
+                        {
+                            this.$message({
+                                message:"该乘客有冲突行程   ",
+                                type: 'warning'
                             });
                         }
                     this.passenger_count --;
@@ -567,7 +578,7 @@
                 {
                     this.$message({
                         message: '获取订单列表失败',
-                        type: 'danger'
+                        type: 'warning'
                     });
                 }
 
@@ -598,7 +609,7 @@
                     {
                         this.$message({
                             message: "支付失败",
-                            type: 'danger'
+                            type: 'warning'
                         });
                 }
             }

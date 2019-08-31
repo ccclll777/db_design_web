@@ -1,5 +1,9 @@
 <template>
     <div class="fillcontain">
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <head-top></head-top>
         <el-form :model="searchForm"  ref="searchForm">
             <el-row :gutter="20" style="margin-left: 300px;margin-top: 10px;width: 800px">

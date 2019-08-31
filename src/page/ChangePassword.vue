@@ -1,6 +1,10 @@
 
 <template>
     <div class="fillcontain">
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <head-top></head-top>
         <header class="admin_title">修改密码</header>
         <el-form class="form_contianer" :model="ChangeForm" ref="ChangeForm">

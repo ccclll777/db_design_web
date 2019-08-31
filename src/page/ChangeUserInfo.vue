@@ -1,6 +1,10 @@
 <template>
     <div class="fillcontain">
         <head-top></head-top>
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <header class="admin_title">修改个人信息</header>
         <el-form class="form_contianer" :model="ChangeForm" ref="ChangeForm">
             <el-form-item prop="user_real_name">

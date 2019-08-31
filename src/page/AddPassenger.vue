@@ -1,5 +1,9 @@
 <template>
     <div class="fillcontain">
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <head-top></head-top>
         <header class="admin_title">添加乘客</header>
 
@@ -48,9 +52,6 @@
 
                 },
                 rules: {
-                    passenger_phone_number: [
-                        { required: true, message: '请输入内容', trigger: 'blur' },
-                    ],
                     passenger_real_name: [
                         { required: true, message: '请输入内容', trigger: 'blur' }
                     ],

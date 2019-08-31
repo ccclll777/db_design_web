@@ -1,5 +1,9 @@
 <template>
     <div class="login_page fillcontain">
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <transition name="form-fade" mode="in-out">
             <section class="form_contianer" v-show="showLogin" style="background-color: #243654">
                 <div class="manage_tip">

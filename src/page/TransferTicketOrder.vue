@@ -2,6 +2,10 @@
 
     <div>
         <head-top></head-top>
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <el-steps :active="active" align-center style="margin-top: 10px">
             <el-step title="添加乘客" ></el-step>
             <el-step title="选择座位" ></el-step>

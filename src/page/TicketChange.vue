@@ -1,6 +1,10 @@
 <template>
 
     <div>
+        <meta  http-equiv="Cache-Control" content="no-cache,no-store,must-revlidate">
+        <meta  http-equiv="Expires" content="O">
+        <meta http-equiv="Pragma" content="no-cache">
+
         <head-top></head-top>
         <el-steps :active="active" align-center style="margin-top: 10px">
             <el-step title="查询列车" ></el-step>
