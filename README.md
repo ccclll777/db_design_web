@@ -1,4 +1,5 @@
 # db_design_web
+## 后端项目地址：https://github.com/ccclll777/db_design_service
 数据库课程设计前端  火车票售票系统 使用vue+elementui
 
 项目结构：
